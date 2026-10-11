@@ -54,9 +54,9 @@
 
 1. **原生 Skills**：只部署运行时文件——`SKILL.md`、`LICENSE` 与 `references/{clarify,plan,verify}.md`（可用 `node scripts/pack-skill.mjs --out <dir>` 生成）；不要复制 `benchmarks/`、`docs/`、`scripts/`、`profiles/`。保留正常自动选择；确认启用状态、发现目录和技能列表。无额外运行时依赖。
 2. **原生技能导入**：上传同一目录结构或 ZIP，在客户端完成导入并确认管理列表。若 UI 只接收单个 `SKILL.md`，先检查其是否支持引用文件；不支持时用规则型自包含正文，不能留下失效链接。无法操作 UI 时交付导入文件并报告待导入状态，磁盘暂存不能说成已安装。
-3. **规则 / 自定义指令**：通过 `scripts/export.mjs --format instructions` 移除 YAML frontmatter，把双语 description 作为适用范围，并把全部 references/*.md 链接转换为简短自包含提示；合并至原生入口或原生 UI 创建的规则正文。支持模型判断加载时选该方式；只有常驻规则时说明正文持续进入上下文。不要同时启用 Skill 与等价规则。
+3. **规则 / 自定义指令**：默认使用 `scripts/export.mjs --format instructions`，移除 YAML frontmatter，把双语 description 作为适用范围，保留完整根正文，只移除可选文件链接。需要参考细节时选择 `instructions-full`，内联实际参考正文各一次并改为文内链接。两种方式检查引用有效性，均不维护另一份摘要。合并至原生入口或原生 UI 创建的规则正文；完整导出成本不同于原生 Skill 的按需文件读取。支持模型判断或文件作用域时使用相应机制，不同时启用 Skill 与等价规则。
 
-安装 AI 根据当前宿主选择一个入口，用户无需日常手工引用。正文不绑定厂商 MCP 名、工具 API、权限、hooks 或固定流程。
+安装 AI 根据当前宿主选择一个入口，用户无需日常手工引用。通用正文不绑定厂商 MCP 名、工具 API、hooks 或固定流程，也不改变宿主权限与实际加载优先级。
 
 ## 已核对的原生机制边界
 

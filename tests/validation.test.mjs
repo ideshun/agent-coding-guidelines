@@ -71,18 +71,26 @@ test('SKILL.md links only one level into references/ and those files exist', () 
   }
 });
 
-test('stage details are not duplicated across SKILL.md and references', () => {
-  const skill = fs.readFileSync(path.join(repoRoot, 'SKILL.md'), 'utf8');
-  assert.equal(/Default to Chinese/i.test(skill), false);
-  assert.equal(/## Tiers|V0 \| T0|reproduce-first/i.test(skill), false);
-  assert.equal(/## Brief \(required output\)|Anti-goals/i.test(skill), false);
-  assert.equal(/Steps with checks|overlapping planning/i.test(skill), false);
-  const clarify = fs.readFileSync(path.join(repoRoot, 'references/clarify.md'), 'utf8');
-  const plan = fs.readFileSync(path.join(repoRoot, 'references/plan.md'), 'utf8');
-  const verify = fs.readFileSync(path.join(repoRoot, 'references/verify.md'), 'utf8');
-  assert.match(clarify, /Success criteria/);
-  assert.match(plan, /verify:/i);
-  assert.match(verify, /V0[\s\S]*V1[\s\S]*V2/);
+test('standard optional metadata is accepted without imposing workflow headings or language', (t) => {
+  const dir = fixture(t);
+  const file = path.join(dir, 'SKILL.md');
+  const source = fs.readFileSync(file, 'utf8');
+  fs.writeFileSync(file, source.replace('license: MIT', 'license: MIT\ncompatibility: Coding agents.\nmetadata:\n  version: "1.0"\nallowed-tools: Read'));
+  assert.deepEqual(validateRepository(dir).errors, []);
+  fs.writeFileSync(file, '---\nname: agent-coding-guidelines\ndescription: "Use for coding."\n---\n# Different structure\nDefault to Chinese.\n');
+  assert.equal(validateRepository(dir).ok, true);
+});
+
+test('missing or empty references and an empty description fail structural checks', (t) => {
+  const dir = fixture(t);
+  fs.unlinkSync(path.join(dir, 'references/plan.md'));
+  fs.writeFileSync(path.join(dir, 'references/verify.md'), '\n  \n');
+  const file = path.join(dir, 'SKILL.md');
+  fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace(/^description: .*$/m, 'description: ""'));
+  const errors = validateRepository(dir).errors;
+  assert.ok(errors.some(error => error === 'references/plan.md: missing'));
+  assert.ok(errors.some(error => error === 'references/verify.md: empty reference'));
+  assert.ok(errors.some(error => error.includes('description must be non-empty text')));
 });
 
 test('valid portable public sources pass without reading ignored local audit files', (t) => {

@@ -1,41 +1,39 @@
 ---
 name: agent-coding-guidelines
-description: "Use for implementing, debugging, reviewing, or refactoring code, and inspecting or changing development configuration. Skip for casual chat and non-technical writing. 适用于实现、调试、审查、重构及开发配置；闲聊与非技术写作不使用。"
+description: "Use for implementing, debugging, reviewing or refactoring code, and inspecting or changing development configuration. 适用于编码、调试、审查、重构及开发配置；普通聊天与非技术写作不使用。"
 license: MIT
 ---
 
 # Agent Coding Guidelines
 
-Priority: user explicit instructions > project rules > host safety policies > this skill.
-Use only guidance relevant to this task; do not repeat equivalent host or project instructions.
+Follow host policies, permissions and applicable project rules using the host's priority order. Apply only relevant guidance; this skill does not grant authorization or replace equivalent instructions.
 
-## Route by risk (choose one)
+## 1. Understand before acting
 
-| Tier | When | Stages |
-|------|------|--------|
-| T0 | Clear single-file change, obvious behavior, easy to revert | Edit → diff self-check. Do not open `references/`. |
-| T1 | Standard feature or bug fix | Read → implement → narrowest relevant check → report. |
-| T2 | Unclear goal, cross-module, public API, data/auth/concurrency, multiple approaches, hard to revert | [Clarify](references/clarify.md) → [Plan](references/plan.md) → implement → [Verify](references/verify.md). |
-| T2+confirm | Irreversible ops (data deletion, migrations, production deploy, security boundary) | Same as T2, plus explicit user approval before acting. |
+- Read relevant code and facts before editing; distinguish evidence from assumptions. Never invent unread implementations, APIs or tool results. Investigate failed reads; stop dependent edits if essential evidence stays unavailable.
+- Preserve negation, scope, sequence, contextual references and latest corrections across languages. Resolve uncertainty from inspected facts; ask only when a remaining ambiguity or contradiction changes the outcome. Clear tasks proceed directly.
+- Scope searches and reuse inspected facts. Avoid aimless traversal, repeated reads and ceremonial calls. For optimization, establish the intended behavior or metric and baseline first.
 
-## Core discipline
+## 2. Choose the simplest sufficient solution
 
-1. **Evidence before edits.** Read relevant code and project facts first. Mark assumptions. Never invent unread implementations, APIs, or tool results. If a read fails, investigate — do not edit from a guess.
-2. **Simplest sufficient.** Reuse existing code and dependencies. No speculative features, premature abstractions, or unrelated upgrades. Prefer the least complexity that preserves correctness, security, and maintainability.
-3. **Surgical changes.** Every hunk must serve the request. Preserve user edits, comments, and public APIs. No drive-by cleanup or formatting. Before finishing, review the full diff and revert unjustified hunks you introduced.
-4. **Observable success.** Define the check before editing. Claims of done/fixed require checks run this session with output actually read. Report failures verbatim; never weaken assertions or skip tests to manufacture green.
+Reuse existing code, dependencies and native capabilities. Add only what is needed; avoid speculative features, premature abstractions and unrelated upgrades. Preserve correctness, security and maintainability; follow project architecture and style.
 
-Stop signals: silent assumptions; "while I'm here…"; tests that mirror the implementation; green-before-fix bug tests; ceremonial tool calls; unbounded tree walks.
+## 3. Keep changes surgical
 
-## Ask / assume / stop
+- Keep every change within the request. Preserve user edits, comments and public APIs unless their change is in scope; avoid incidental cleanup or formatting. Review the final diff or equivalent comparison; remove only unrelated changes you introduced.
+- For review, report examined scope and findings; edit only when authorized. Honor existing authorization. Confirm unapproved consequential choices, scope expansion or irreversible actions; silence is not approval. Follow required host approvals.
 
-**Must stop and confirm:** irreversible ops; public API changes; new third-party dependencies; expanding scope beyond the request; internal contradictions in the request.
+## 4. Verify the outcome
 
-**May proceed with an explicit assumption:** naming; local implementation details; choices easily reverted in the diff.
+- Define observable success before editing. Reproduce bugs when practical; disclose unavailable reproduction. Use existing verification rules and the smallest checks sufficient for behavior and risk, without another grading system. File count alone does not determine risk.
+- Inspect actual output and exit status for the final version. Static success does not prove runtime behavior. Never weaken checks, swallow failures or invent results; distinguish passed, failed and unexecuted checks. Avoid irrelevant full suites, redundant reruns and mirrored tests.
 
-**Question budget:** one round; merge questions; each question includes a recommended option. Prefer resolving from code and context first.
+## Conditional detail
 
-## Report shape
+Choose these independently. Clear local work needs no plan artifact or reference read.
 
-What changed → what was verified (commands + outcomes) → what was not verified and remaining risk.
-Follow the user's language; keep identifiers, commands, and quoted errors verbatim.
+- [Clarify](references/clarify.md) for unresolved key ambiguity or consequential design choices: goals, excluded/unacceptable outcomes, constraints, success criteria and meaningful trade-offs.
+- [Plan](references/plan.md) for sequencing, dependencies or implementation risk: prefer the host's existing Plan; outline scope, steps and checks. A clear goal needs no clarification stage.
+- [Verify](references/verify.md) for complex evidence selection, integration, runtime behavior or blocked checks: match checks to impact and report gaps.
+
+Report outcome, relevant verification and remaining risk concisely. Follow the requested language, otherwise the conversation's; preserve identifiers, commands and quoted errors, and omit secrets. Mention untouched scope only to prevent misunderstanding.

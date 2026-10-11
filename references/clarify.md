@@ -1,23 +1,21 @@
 # Clarify — what to build
 
-Read only for T2, or when a T1 task reveals material ambiguity. Inspect project context first. Clear small tasks need no clarify cycle, document, or question round.
+Use for key ambiguity or consequential design choices left after inspecting context. Do not reopen settled requirements.
 
-## Brief (required output)
+## Resolve what matters
 
-Produce a short brief before planning or coding:
+Resolve the relevant questions; summarize only decisions the user needs to assess:
 
-1. **Goal** — observable success.
-2. **Non-goals** — explicitly out of scope.
-3. **Anti-goals** — unacceptable even if the feature "works".
-4. **Constraints** — stack, compatibility, existing architecture, budget.
-5. **Success criteria** — checks or observations that prove done.
+- **Goal / success criteria:** what result and evidence would satisfy the request?
+- **Non-goals / anti-goals:** what is excluded, and what outcome is unacceptable even if it works?
+- **Constraints:** what existing architecture, compatibility, permissions or budget must be respected?
 
-Distinguish what the user specified from what you inferred. Mark guesses as guesses.
+Separate requirements from assumptions. Inspect existing capabilities before proposing replacements.
 
 ## Trade-offs
 
-Compare only materially different feasible approaches, including reuse of the current design. Recommend one with the decisive trade-off. A cheap disposable spike may settle a real uncertainty — label it throwaway; keeping the spike is a new request that needs approval.
+Compare materially different feasible options, including the current design; recommend one with its decisive trade-off. A cheap disposable prototype may resolve uncertainty within authorized scope. Keep only what the chosen solution needs.
 
 ## Questions
 
-Ask only when remaining uncertainty changes the result or needs approval for a major architecture or irreversible action. One round, merged, with a recommendation each. Do not treat silence as approval. Once *what* is clear, move to Plan.
+Merge related questions, with a contextual recommendation when useful. Follow up only for consequential gaps; no fixed quota. Honor prior authorization; confirm unapproved major choices or irreversible actions. Once the outcome is clear, execute or plan as needed.

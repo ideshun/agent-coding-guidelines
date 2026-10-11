@@ -1,21 +1,21 @@
 # Agent Coding Guidelines
 
-一套简洁、可靠、可维护、跨工具复用的 AI Coding 流程化 skill。核心目标：**更有效、更低成本、更可控**——用分级路由与按需加载约束 Agent 行为，而不是制造复杂框架。
+一套简洁、可靠、可维护、跨工具复用的 AI Coding 流程化 skill。核心目标：**更有效、更低成本、更可控**。以 Karpathy 四原则为基础，按实际需求决定澄清、规划和验证的深度。
 
-**单一来源，不叠加等价入口**：根 [`SKILL.md`](SKILL.md) 是唯一通用原则正文；`references/` 仅在 T2（或对应触发）时按需读取；导出脚本与兼容目录都从它派生。诚实声明：本仓库目前**没有受控对照实验证明提效**——静态测试只验证内容完整性与预算，不验证模型行为收益（见[验证说明](docs/verification.md)）。
+**单一来源，不叠加等价入口**：根 [`SKILL.md`](SKILL.md) 承载通用原则；`references/` 根据各自条件读取，不强制串行执行三个阶段。导出从这些源文件生成。当前**没有受控对照实验证明提效**，静态检查不能证明模型更准、更省（见[验证说明](docs/verification.md)）。
 
 [English](README.en.md)
 
 ## 内容
 
 ```
-SKILL.md                       # 唯一入口：T0/T1/T2 路由 + 核心纪律
+SKILL.md                       # 唯一入口：四原则 + 独立触发条件
 references/
-  clarify.md                   # T2：what（brief + 取舍）
-  plan.md                      # T2：how（步骤 → verify；优先宿主 Plan）
-  verify.md                    # T2 / 非平凡 T1：V0–V2 + 诚实报告
+  clarify.md                   # 关键歧义 / 重要设计：what + 取舍
+  plan.md                      # 复杂实施：how；复用宿主 Plan
+  verify.md                    # 复杂证据选择：按影响验证，复用已有规则
 profiles/                      # 可选项目级规范（不进全局）
-scripts/                       # 只读导出、打包与兼容查询（Node 20+ 标准库）
+scripts/                       # 导出、运行时打包与兼容查询（Node 20+ 标准库）
 benchmarks/                    # 八类公开任务与离线 oracle（仅维护；不进安装包）
 docs/
   design.md                    # 研究来源 → 决策 → 落实位置
@@ -54,9 +54,18 @@ node scripts/pack-skill.mjs --out /tmp/agent-coding-guidelines
 ```sh
 node scripts/export.mjs --format skill
 node scripts/export.mjs --format instructions
+node scripts/export.mjs --format instructions-full
 ```
 
-只输出到 stdout，不改宿主配置、不联网。instructions 会把全部 `references/*.md` 链接折叠为自包含短提示。
+只输出到 stdout，不改宿主配置、不联网：
+
+- `skill`：保留根入口原文，安装时仍须带上参考文件。
+- `instructions`：默认轻量规则，完整保留根入口的原则和触发条件，仅将可选文件链接改为名称。必要约束都在根入口，导出不另写摘要。
+- `instructions-full`：在同一根入口后，将实际参考正文各内联一次，转换为文内链接。只有需要详细指导时才选择这一版。
+
+两种规则导出都检查引用文件；缺失、软链接或不支持的本地引用直接报错。可选参考文件只在原生 Skill 或完整导出中提供。
+
+原生 Skills 可按需读取参考文件；规则型宿主加载所选导出的全部正文，完整导出无法获得相同的文件级渐进加载成本。优先原生 Skills；否则默认轻量导出，按宿主作用域加载并避免重复入口。
 
 ### 兼容查询
 
@@ -78,14 +87,14 @@ node scripts/export-profile.mjs --format vscode
 
 ### 已有配置保护
 
-安装只追加、不覆盖：不删除或批量替换你已有的 Rules / Skills / MCP / AGENTS.md。备份与回滚见 [compatibility.md](docs/compatibility.md)。
+保留已有 Rules / Skills / MCP / AGENTS.md。同名或同义入口先比较、备份，再按授权更新本技能内容；避免盲目追加重复副本。备份与回滚见 [compatibility.md](docs/compatibility.md)。
 
 ## 流程摘要
 
-1. **Route** — 按风险选 T0 / T1 / T2；小改动直接做。
-2. **Clarify**（T2）— 产出 brief：目标 / 非目标 / 反目标 / 约束 / 成功标准。
-3. **Plan**（T2）— 步骤与 per-step verify；优先宿主 Plan。
-4. **Verify** — 与 T 对齐的 V0/V1/V2；真实输出；诚实报告未验证项。
+1. **Understand** — 先读证据；关键歧义或重要设计才澄清，目标明确直接执行。
+2. **Plan when needed** — 实施需要顺序、依赖或风险管理才规划，复用宿主机制；不要求先生成 Clarify 文档。
+3. **Change surgically** — 简单充分，复用已有实现，保护用户改动，检查最终 diff。
+4. **Verify** — 按行为影响选择充分检查，复用项目验证方案；如实报告失败、未执行项与风险。
 
 ## 维护
 
