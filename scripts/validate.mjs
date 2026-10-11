@@ -66,6 +66,9 @@ export const validateRepository = (repoRoot = sourceRoot) => {
             try { description = JSON.parse(description); }
             catch { errors.push(`${relative}: description is not valid JSON-quoted text`); }
           }
+          if (typeof description !== 'string' || !description.trim()) {
+            errors.push(`${relative}: description must be non-empty text`);
+          }
           if (typeof description === 'string' && description.length > DESCRIPTION_MAX_CHARS) {
             errors.push(`${relative}: description exceeds ${DESCRIPTION_MAX_CHARS} characters`);
           }
@@ -73,7 +76,7 @@ export const validateRepository = (repoRoot = sourceRoot) => {
         if (relative === 'SKILL.md') {
           const keys = [...match[1].matchAll(/^([A-Za-z0-9_-]+):/gm)].map(item => item[1]);
           for (const key of keys) {
-            if (!['name', 'description', 'license'].includes(key)) {
+            if (!['name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools'].includes(key)) {
               errors.push(`${relative}: unexpected frontmatter key ${key}`);
             }
           }
@@ -97,6 +100,7 @@ export const validateRepository = (repoRoot = sourceRoot) => {
       }
     }
     if (relative.startsWith(`references${path.sep}`) && relative.endsWith('.md')) {
+      if (!text.trim()) errors.push(`${relative}: empty reference`);
       const lines = text.split('\n').length;
       if (lines > REFERENCE_MAX_LINES) {
         errors.push(`${relative}: exceeds reference budget (${lines} > ${REFERENCE_MAX_LINES} lines)`);
@@ -117,38 +121,10 @@ export const validateRepository = (repoRoot = sourceRoot) => {
     }
   }
 
-  const skillPath = path.join(repoRoot, 'SKILL.md');
-  const clarifyPath = path.join(repoRoot, 'references', 'clarify.md');
-  const planPath = path.join(repoRoot, 'references', 'plan.md');
-  const verifyPath = path.join(repoRoot, 'references', 'verify.md');
-  if (fs.existsSync(skillPath) && fs.existsSync(clarifyPath) && fs.existsSync(planPath) && fs.existsSync(verifyPath)) {
-    const skill = fs.readFileSync(skillPath, 'utf8');
-    const clarify = fs.readFileSync(clarifyPath, 'utf8');
-    const plan = fs.readFileSync(planPath, 'utf8');
-    const verify = fs.readFileSync(verifyPath, 'utf8');
-    if (/Default to Chinese/i.test(skill)) errors.push('SKILL.md: personal language default must not appear in the shared skill');
-    if (/## Tiers|V0 \| T0|reproduce-first/i.test(skill)) {
-      errors.push('SKILL.md: verification tier details belong only in references/verify.md');
-    }
-    if (/## Brief \(required output\)|Anti-goals/i.test(skill)) {
-      errors.push('SKILL.md: clarify brief details belong only in references/clarify.md');
-    }
-    if (/Steps with checks|overlapping planning/i.test(skill)) {
-      errors.push('SKILL.md: plan details belong only in references/plan.md');
-    }
-    if (!/Route by risk/.test(skill)) errors.push('SKILL.md: missing risk route table');
-    if (!/Goal|Non-goals|Anti-goals|Constraints|Success criteria/.test(clarify)) {
-      errors.push('references/clarify.md: missing brief fields');
-    }
-    if (!/verify:/i.test(plan)) errors.push('references/plan.md: missing step → verify pairing');
-    if (!/V0|V1|V2/.test(verify)) errors.push('references/verify.md: missing V0/V1/V2 tiers');
-    if (!/prefer project or user verification/i.test(verify)) {
-      errors.push('references/verify.md: missing project/user override hook');
-    }
-  }
-
   return { ok: errors.length === 0, filesChecked: files.length, errors,
-    limits: ['Pattern checks cannot certify absence of all secrets.', 'Static validation does not prove native loading or model performance.'] };
+    limits: ['Repository policies and scalar pattern checks are not a complete Agent Skills YAML validator.',
+      'Pattern checks cannot certify absence of all secrets.',
+      'Static validation does not assess instruction semantics, native loading or model performance.'] };
 };
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

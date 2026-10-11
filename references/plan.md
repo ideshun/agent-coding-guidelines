@@ -1,11 +1,10 @@
 # Plan — how to implement
 
-Read for T2 after Clarify, or when T1 grows into multi-step or hard-to-revert work. Decides *how*, not *what*. Prefer the host's native Plan mode when available; otherwise write a short inline plan. Never run two overlapping planning systems.
+Use for ordering, dependencies, risks or coordinated verification. A clear goal needs no Clarify stage. Prefer the host's existing Plan; otherwise use a short inline plan, without a second planning system.
 
 ## Contents
 
-- **Scope** — areas touched, and what stays untouched.
-- **Approach** — chosen route in a few lines and why.
+- **Scope / approach** — affected areas, chosen route and why.
 - **Steps with checks** — each step paired with proof:
 
 ```
@@ -14,10 +13,10 @@ Read for T2 after Clarify, or when T1 grows into multi-step or hard-to-revert wo
 ```
 
 - **Risks** — ordering, external state, rollback.
-- **Verification tier** — which V-level from Verify applies and why (risk-based, not maximal).
+- **Evidence** — project checks and observations selected for impact; reuse existing verification rules.
 
-Success criteria come from the Clarify brief — do not invent a second definition of done. Clear local fixes need no plan artifact.
+Use success criteria from the request and facts; no prerequisite document. Local fixes need no plan artifact.
 
 ## Discipline
 
-Depth matches risk. A longer plan is not a better plan. If reality diverges mid-task, stop, say so, and update the plan — do not quietly improvise.
+Match depth to complexity and risk. Update when evidence changes the approach; stop only for changed outcomes, authorization or consequential constraints. Routine adjustments need no approval cycle.

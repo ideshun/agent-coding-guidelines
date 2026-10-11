@@ -1,30 +1,29 @@
 # Verify — prove the outcome
 
-Read for T2, or whenever reporting done on non-trivial T1 work. Prefer project or user verification schemes when present; the tiers below are the default when none exist.
+Use for complex evidence selection. Reuse project/user verification rules; these examples add no grading system.
 
-## Tiers (aligned with task route)
+## Match evidence to impact
 
-| Tier | When | Minimum |
-|------|------|---------|
-| V0 | T0 | Diff self-check only. |
-| V1 | T1 | Diff + narrowest relevant check (lint / typecheck / targeted test from `package.json`, Makefile, or CI). |
-| V2 | T2 | V1 + reproduce-first for bugs + build or relevant suite covering changed behavior. |
+| Change | Useful evidence |
+| --- | --- |
+| Text or formatting with no behavior change | Diff and relevant link, syntax or render checks where applicable. |
+| Logic or bug fix, even in one file | Targeted behavior check; relevant types or lint. Reproduce the bug before fixing when practical. |
+| Integration, shared contracts or build configuration | Checks covering affected callers or boundaries; build or relevant suite if it adds evidence. |
+| UI interactions or environment-dependent behavior | Runtime, browser or E2E observations when needed to establish the result. |
 
-Irreversible ops: V2 plus explicit user confirmation and a rollback path.
+Assess impact when uncertain. Irreversible actions need authorization and a practical recovery path; state when reversal is impossible.
 
 ## Rules
 
-- A check counts only if it ran this session and its output was read. Exit 0 without seeing output is not evidence.
-- Bug fixes: reproduction must fail on pre-fix code first. Green-before-fix means a bad test.
-- Do not weaken assertions, skip failing tests, or fix unrelated pre-existing failures to manufacture success — report them.
-- Do not add tests that merely mirror the implementation.
-- Same check once per edit round unless the code under test changed.
-- Runtime / browser / E2E only when the user asks or the defect is only observable at runtime.
-- Static green ≠ feature correct. State what remains unverified.
+- Record actual checks, output and exit status for the final version/environment. Silent success is valid; unexecuted checks are not. Reuse still-valid results.
+- A regression check should distinguish defective from correct behavior. If it passes before the fix, investigate its coverage; other passing checks remain useful. Explain unavailable or intermittent reproduction.
+- Separate new failures, pre-existing failures and blocked checks. Never repair unrelated failures or weaken assertions to manufacture success. Do not claim unverified outcomes as confirmed.
+- Rerun for affected code, dependency/environment changes or flaky-result investigation; disclose unresolved flakiness. Add tests only for meaningful behavior.
+- Read enough output to assess results; retrieve material missing parts and disclose remaining truncation. Report relevant errors and exit status without secrets.
 
 ## Diff self-check
 
-Every hunk traces to the request. Revert unrelated hunks you introduced. Never overwrite the user's pre-existing uncommitted changes. No orphaned imports left by your edit.
+Check scope and consistency across the diff, affected callers and artifacts. Remove only your unrelated changes and orphaned imports; preserve user edits.
 
 ## Report
 

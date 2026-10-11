@@ -1,21 +1,21 @@
 # Agent Coding Guidelines
 
-A concise, reliable, maintainable, cross-tool **workflow skill** for AI coding agents. Core goal: **more effective, lower cost, more controllable** — via risk routing and progressive disclosure, not another agent framework.
+A concise, reliable, maintainable, cross-tool **workflow skill** for AI coding agents. Core goal: **more effective, lower cost, more controllable**. Karpathy's four principles guide how much clarification, planning and verification a task needs.
 
-**Single source of truth, no duplicate entries**: root [`SKILL.md`](SKILL.md) is the only shared body; `references/` load only on T2 (or matching triggers); export scripts and the compatibility catalog derive from it. Honest disclaimer: this repository currently has **no controlled comparison proving effectiveness** — static tests check integrity and budgets, not model gains (see [verification](docs/verification.md)).
+**Single source of truth, no duplicate entries**: root [`SKILL.md`](SKILL.md) holds the shared principles; each reference has its own trigger, without a mandatory three-stage sequence. Exports derive from these source files. There is currently **no controlled comparison proving effectiveness**; static checks cannot establish model quality or cost gains (see [verification](docs/verification.md)).
 
 [简体中文](README.md)
 
 ## Contents
 
 ```
-SKILL.md                       # Single entry: T0/T1/T2 route + core discipline
+SKILL.md                       # Single entry: four principles + independent triggers
 references/
-  clarify.md                   # T2: what (brief + trade-offs)
-  plan.md                      # T2: how (steps → verify; prefer host Plan)
-  verify.md                    # T2 / non-trivial T1: V0–V2 + honest report
+  clarify.md                   # Key ambiguity / consequential design: what + trade-offs
+  plan.md                      # Complex implementation: how; reuse host Plan
+  verify.md                    # Complex evidence selection; reuse existing verification rules
 profiles/                      # Opt-in project profiles (never global)
-scripts/                       # Read-only export, pack & compatibility (Node 20+ stdlib)
+scripts/                       # Export, runtime pack & compatibility (Node 20+ stdlib)
 benchmarks/                    # Eight public tasks + offline oracles (maintainers only; not installed)
 docs/
   design.md                    # Research → decision → location
@@ -54,9 +54,18 @@ Copies the five runtime files into an empty directory and prints a JSON manifest
 ```sh
 node scripts/export.mjs --format skill
 node scripts/export.mjs --format instructions
+node scripts/export.mjs --format instructions-full
 ```
 
-Stdout only; no config writes; no network. The instructions format folds every `references/*.md` link into a short self-contained hint.
+Stdout only; no config writes; no network:
+
+- `skill`: preserves the root source; install its references too.
+- `instructions`: default compact rules, preserving the whole root body and triggers while turning optional file links into labels. Essential constraints stay in the root; no separate summaries.
+- `instructions-full`: appends the actual referenced source bodies once, using internal links. Choose it only when detailed guidance is needed.
+
+Both rule exports validate references and reject missing files, symlinks or unsupported local links. Optional reference detail is available only through native Skills or the full export.
+
+Native Skills can read references on demand. Rule-only hosts load the entire chosen export; the full form cannot offer the same file-level context cost. Prefer native Skills; otherwise default to compact rules with supported scopes and no duplicate entries.
 
 ### Compatibility lookup
 
@@ -78,14 +87,14 @@ node scripts/export-profile.mjs --format vscode
 
 ### Protect existing config
 
-Install appends; it does not wipe Rules / Skills / MCP / AGENTS.md. Backup and rollback: [compatibility.md](docs/compatibility.md).
+Preserve existing Rules / Skills / MCP / AGENTS.md. Compare and back up equivalent entries before authorized updates to this skill; do not blindly append duplicate copies. Backup and rollback: [compatibility.md](docs/compatibility.md).
 
 ## Workflow summary
 
-1. **Route** — pick T0 / T1 / T2; clear small edits skip ceremony.
-2. **Clarify** (T2) — brief: goal / non-goals / anti-goals / constraints / success criteria.
-3. **Plan** (T2) — steps with per-step verify; prefer host Plan mode.
-4. **Verify** — V0/V1/V2 aligned with T; real output; honest gaps.
+1. **Understand** — read evidence first; clarify key ambiguity or consequential design choices. Clear tasks proceed directly.
+2. **Plan when needed** — order steps, dependencies and risks through the host's existing mechanism; no prerequisite Clarify document.
+3. **Change surgically** — choose a simple sufficient solution, reuse existing code, preserve user edits and inspect the final diff.
+4. **Verify** — choose sufficient checks for behavior and impact, reuse project verification rules, and report failures, unexecuted checks and risk.
 
 ## Maintenance
 
