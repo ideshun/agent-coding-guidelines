@@ -1,0 +1,1363 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-11",
+  "canonical": "skills/<name>/SKILL.md",
+  "statusMeaning": {
+    "vendor-docs": "Mechanism checked against vendor documentation; no universal client execution claim.",
+    "installer-registry": "Upstream installer declares these directories. Confirm current host support before installation."
+  },
+  "pathSyntax": "~ denotes the current execution user home. ${VAR:-default} denotes a documented environment override; this catalog does not expand variables or perform writes. Resolve paths in the active local, remote or cloud host.",
+  "sources": {
+    "vercel-registry": {
+      "url": "https://github.com/vercel-labs/skills/blob/main/src/agents.ts",
+      "retrieved": "2026-10-11",
+      "sha256": "9c64197246db1b61c0b2777114e2e01dd60f503129842ce7eeb78a3c3f2caa25",
+      "kind": "upstream-installer-source",
+      "note": "Paths are independently extracted factual metadata; no host execution implied. Mutable main URL; exact retrieved source hash recorded."
+    },
+    "codex-docs": {
+      "url": "https://learn.chatgpt.com/docs/build-skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "cursor-docs": {
+      "url": "https://cursor.com/docs/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "claude-code-docs": {
+      "url": "https://code.claude.com/docs/en/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "cline-docs": {
+      "url": "https://docs.cline.bot/customization/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "windsurf-docs": {
+      "url": "https://docs.devin.ai/desktop/cascade/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "codebuddy-docs": {
+      "url": "https://www.codebuddy.cn/docs/cli/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoder-docs": {
+      "url": "https://docs.qoder.com/cli/Skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoder-cn-docs": {
+      "url": "https://docs.qoder.cn/en/cli/config-scope",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "trae-cn-docs": {
+      "url": "https://docs.trae.cn/ide_skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "lingma-docs": {
+      "url": "https://docs.qoder.cn/user-guide/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "iflow-cli-docs": {
+      "url": "https://docs.iflow.cn/cli/examples/skill/",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "kimi-code-cli-docs": {
+      "url": "https://www.kimi.com/en/help/kimi-code/cli-skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "copilot-vscode-docs": {
+      "url": "https://code.visualstudio.com/docs/agent-customization/agent-skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoder-ide-docs": {
+      "url": "https://docs.qoder.com/qoder/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoder-cn-ide-docs": {
+      "url": "https://docs.qoder.cn/en/qoder/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoderwork-docs": {
+      "url": "https://docs.qoder.com/qoderwork/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "qoderwork-cn-docs": {
+      "url": "https://docs.qoder.cn/en/qoderwork/user-guide/scalability/skills",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "codebuddy-ide-docs": {
+      "url": "https://www.codebuddy.ai/docs/ide/User-guide/Overview",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "amazon-q-ide-docs": {
+      "url": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/context-project-rules.html",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "jetbrains-ai-docs": {
+      "url": "https://www.jetbrains.com/help/ai-assistant/configure-project-rules.html",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "aider-docs": {
+      "url": "https://aider.chat/docs/config/aider_conf.html",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    },
+    "comate-docs": {
+      "url": "https://comate.baidu.com/docs/IDE%E5%8A%9F%E8%83%BD/%E6%99%BA%E8%83%BD%E4%BD%93/%E8%A7%84%E5%88%99/",
+      "retrieved": "2026-10-11",
+      "kind": "vendor-documentation"
+    }
+  },
+  "tools": [
+    {
+      "id": "adal",
+      "name": "AdaL",
+      "mode": "skill",
+      "user": "~/.adal/skills",
+      "project": ".adal/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "aider",
+      "name": "Aider",
+      "mode": "instructions",
+      "user": null,
+      "project": "AGENT_CODING_GUIDELINES.md",
+      "evidence": "vendor-docs",
+      "sources": [
+        "aider-docs"
+      ],
+      "selection": "configured-read",
+      "notes": [
+        "Merge the exported file into the read option in existing .aider.conf.yml, preserving all other settings; do not replace the config or duplicate read entries. Global installation requires an explicitly resolved absolute file path."
+      ]
+    },
+    {
+      "id": "aider-desk",
+      "name": "AiderDesk",
+      "mode": "skill",
+      "user": "~/.aider-desk/skills",
+      "project": ".aider-desk/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "amazon-q-ide",
+      "name": "Amazon Q Developer in IDE",
+      "mode": "instructions",
+      "user": null,
+      "project": ".amazonq/rules/agent-coding-guidelines.md",
+      "evidence": "vendor-docs",
+      "sources": [
+        "amazon-q-ide-docs"
+      ],
+      "selection": "always",
+      "notes": [
+        "Markdown project rules are always added to project chat context. Does not establish Amazon Q CLI or Kiro behavior."
+      ]
+    },
+    {
+      "id": "amp",
+      "name": "Amp",
+      "mode": "skill",
+      "user": "${XDG_CONFIG_HOME:-~/.config}/agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "antigravity",
+      "name": "Antigravity",
+      "mode": "skill",
+      "user": "~/.gemini/antigravity/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "antigravity-cli",
+      "name": "Antigravity CLI",
+      "mode": "skill",
+      "user": "~/.gemini/antigravity-cli/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "astrbot",
+      "name": "AstrBot",
+      "mode": "skill",
+      "user": "~/.astrbot/data/skills",
+      "project": "data/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "augment",
+      "name": "Augment",
+      "mode": "skill",
+      "user": "~/.augment/skills",
+      "project": ".augment/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "autohand-code",
+      "name": "Autohand Code CLI",
+      "mode": "skill",
+      "user": "${AUTOHAND_HOME:-~/.autohand}/skills",
+      "project": ".autohand/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "bob",
+      "name": "IBM Bob",
+      "mode": "skill",
+      "user": "~/.bob/skills",
+      "project": ".bob/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "mode": "skill",
+      "user": "${CLAUDE_CONFIG_DIR:-~/.claude}/skills",
+      "project": ".claude/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "claude-code-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "CLAUDE_CONFIG_DIR may change the user directory; not a Claude Desktop installation."
+      ]
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "mode": "skill",
+      "user": "~/.cline/skills",
+      "project": ".cline/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "cline-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Vendor docs differ from upstream installer registry; use vendor native paths, inspect .clinerules/skills and .claude/skills; global same-name skill takes precedence."
+      ]
+    },
+    {
+      "id": "codearts-agent",
+      "name": "CodeArts Agent",
+      "mode": "skill",
+      "user": "~/.codeartsdoer/skills",
+      "project": ".codeartsdoer/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "codebuddy",
+      "name": "CodeBuddy Code / CLI",
+      "mode": "skill",
+      "user": "~/.codebuddy/skills",
+      "project": ".codebuddy/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "codebuddy-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "CN and international CLI docs describe .codebuddy/skills; check skillOverrides and disable-model-invocation without altering unrelated settings. IDE tracked separately."
+      ]
+    },
+    {
+      "id": "codebuddy-ide",
+      "name": "CodeBuddy IDE / plugin",
+      "mode": "skill-import",
+      "user": null,
+      "project": ".codebuddy/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "codebuddy-ide-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Project skills directory vendor documented; confirm the installed IDE user import destination instead of deriving it from CLI."
+      ]
+    },
+    {
+      "id": "codemaker",
+      "name": "Codemaker",
+      "mode": "skill",
+      "user": "~/.codemaker/skills",
+      "project": ".codemaker/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "codestudio",
+      "name": "Code Studio",
+      "mode": "skill",
+      "user": "~/.codestudio/skills",
+      "project": ".codestudio/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "codex-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Public native directory; check CODEX_HOME and remote environment separately."
+      ]
+    },
+    {
+      "id": "comate",
+      "name": "Baidu Comate / Zulu",
+      "mode": "instructions-ui",
+      "user": null,
+      "project": ".comate/rules/agent-coding-guidelines.mdr",
+      "evidence": "vendor-docs",
+      "sources": [
+        "comate-docs"
+      ],
+      "selection": "configurable",
+      "notes": [
+        "Create a rule using the native UI then replace only its body with exported instructions; vendor advises against editing frontmatter manually. Comate also imports Cursor rules, so inspect those first. Always or file-pattern rules load automatically; manual mode does not meet automatic-loading intent."
+      ]
+    },
+    {
+      "id": "command-code",
+      "name": "Command Code",
+      "mode": "skill",
+      "user": "~/.commandcode/skills",
+      "project": ".commandcode/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "continue",
+      "name": "Continue",
+      "mode": "skill",
+      "user": "~/.continue/skills",
+      "project": ".continue/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "copilot-vscode",
+      "name": "GitHub Copilot in VS Code",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "copilot-vscode-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Do not infer support in every Copilot client; inspect .github/skills, .claude/skills and personal compatible roots."
+      ]
+    },
+    {
+      "id": "cortex",
+      "name": "Cortex Code",
+      "mode": "skill",
+      "user": "~/.snowflake/cortex/skills",
+      "project": ".cortex/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "crush",
+      "name": "Crush",
+      "mode": "skill",
+      "user": "~/.config/crush/skills",
+      "project": ".crush/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "cursor-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Prefer an already discovered shared entry; inspect ~/.cursor/skills and compatible directories before adding another."
+      ]
+    },
+    {
+      "id": "deepagents",
+      "name": "Deep Agents",
+      "mode": "skill",
+      "user": "~/.deepagents/agent/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "devin",
+      "name": "Devin for Terminal",
+      "mode": "skill",
+      "user": "${XDG_CONFIG_HOME:-~/.config}/devin/skills",
+      "project": ".devin/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "dexto",
+      "name": "Dexto",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "droid",
+      "name": "Droid",
+      "mode": "skill",
+      "user": "~/.factory/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "eve",
+      "name": "Eve",
+      "mode": "skill",
+      "user": null,
+      "project": "agent/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "No global directory in the registry; subagent skills have separate scope."
+      ]
+    },
+    {
+      "id": "firebender",
+      "name": "Firebender",
+      "mode": "skill",
+      "user": "~/.firebender/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "forgecode",
+      "name": "ForgeCode",
+      "mode": "skill",
+      "user": "~/.forge/skills",
+      "project": ".forge/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "fx",
+      "name": "fx",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Gemini CLI",
+      "mode": "skill",
+      "user": "~/.gemini/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot CLI / upstream installer target",
+      "mode": "skill",
+      "user": "~/.copilot/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "Upstream target is distinct from the vendor-reviewed VS Code profile. Confirm CLI version and scan roots."
+      ]
+    },
+    {
+      "id": "goose",
+      "name": "Goose",
+      "mode": "skill",
+      "user": "${XDG_CONFIG_HOME:-~/.config}/goose/skills",
+      "project": ".goose/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "grok",
+      "name": "Grok Build",
+      "mode": "skill",
+      "user": "${GROK_HOME:-~/.grok}/skills",
+      "project": ".grok/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "hermes-agent",
+      "name": "Hermes Agent",
+      "mode": "skill",
+      "user": "${HERMES_HOME:-~/.hermes}/skills",
+      "project": ".hermes/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "iflow-cli",
+      "name": "iFlow CLI",
+      "mode": "skill",
+      "user": "~/.iflow/skills",
+      "project": ".iflow/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "iflow-cli-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "SKILL.md documented; CLI may maintain skill.toml registration. Use /skills list and /skills refresh; copying alone does not establish registration."
+      ]
+    },
+    {
+      "id": "inference-sh",
+      "name": "inference.sh",
+      "mode": "skill",
+      "user": "~/.inferencesh/skills",
+      "project": ".inferencesh/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "jazz",
+      "name": "Jazz",
+      "mode": "skill",
+      "user": "~/.jazz/skills",
+      "project": ".jazz/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "jetbrains-ai",
+      "name": "JetBrains AI Assistant",
+      "mode": "instructions",
+      "user": null,
+      "project": ".aiassistant/rules/agent-coding-guidelines.md",
+      "evidence": "vendor-docs",
+      "sources": [
+        "jetbrains-ai-docs"
+      ],
+      "selection": "configurable",
+      "notes": [
+        "Create the project rule and choose By model decision with the canonical description when supported; default Always has different cost. Junie is a separate skills profile."
+      ]
+    },
+    {
+      "id": "junie",
+      "name": "Junie",
+      "mode": "skill",
+      "user": "~/.junie/skills",
+      "project": ".junie/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "kilo",
+      "name": "Kilo Code",
+      "mode": "skill",
+      "user": "~/.kilo/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "kimchi",
+      "name": "Kimchi",
+      "mode": "skill",
+      "user": "~/.config/kimchi/harness/skills",
+      "project": ".kimchi/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "kimi-code-cli",
+      "name": "Kimi Code CLI",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "kimi-code-cli-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Shared directory selected; inspect Kimi-specific skill roots and KIMI_CODE_HOME before creating a duplicate."
+      ]
+    },
+    {
+      "id": "kiro-cli",
+      "name": "Kiro CLI",
+      "mode": "skill",
+      "user": "~/.kiro/skills",
+      "project": ".kiro/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "kode",
+      "name": "Kode",
+      "mode": "skill",
+      "user": "~/.kode/skills",
+      "project": ".kode/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "lingma",
+      "name": "Lingma / legacy Qoder CN IDE",
+      "mode": "skill",
+      "user": "~/.lingma/skills",
+      "project": ".lingma/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "lingma-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "This guide documents .lingma paths; newer Qoder CN UI documents import instead. Confirm product generation rather than treating .lingma and .qoder-cn as aliases."
+      ]
+    },
+    {
+      "id": "loaf",
+      "name": "Loaf",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "mcpjam",
+      "name": "MCPJam",
+      "mode": "skill",
+      "user": "~/.mcpjam/skills",
+      "project": ".mcpjam/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "minimax-code",
+      "name": "MiniMax Code",
+      "mode": "skill",
+      "user": "~/.minimax/skills",
+      "project": ".minimax/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "mistral-vibe",
+      "name": "Mistral Vibe",
+      "mode": "skill",
+      "user": "${VIBE_HOME:-~/.vibe}/skills",
+      "project": ".vibe/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "moxby",
+      "name": "Moxby",
+      "mode": "skill",
+      "user": "~/.moxby/skills",
+      "project": ".moxby/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "mux",
+      "name": "Mux",
+      "mode": "skill",
+      "user": "~/.mux/skills",
+      "project": ".mux/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "neovate",
+      "name": "Neovate",
+      "mode": "skill",
+      "user": "~/.neovate/skills",
+      "project": ".neovate/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "ona",
+      "name": "Ona",
+      "mode": "skill",
+      "user": "~/.ona/skills",
+      "project": ".ona/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "openclaw",
+      "name": "OpenClaw",
+      "mode": "skill",
+      "user": "~/.openclaw/skills",
+      "project": "skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "Registry uses the first existing .openclaw / .clawdbot / .moltbot config root; shown path is the default. Inspect the active root."
+      ]
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "mode": "skill",
+      "user": "${XDG_CONFIG_HOME:-~/.config}/opencode/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "openhands",
+      "name": "OpenHands",
+      "mode": "skill",
+      "user": "~/.openhands/skills",
+      "project": ".openhands/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "pi",
+      "name": "Pi",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "pochi",
+      "name": "Pochi",
+      "mode": "skill",
+      "user": "~/.pochi/skills",
+      "project": ".pochi/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "posit-assistant",
+      "name": "Posit Assistant",
+      "mode": "skill",
+      "user": "~/.posit/assistant/skills",
+      "project": ".posit/assistant/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "promptscript",
+      "name": "PromptScript",
+      "mode": "skill",
+      "user": null,
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "No global directory in the registry."
+      ]
+    },
+    {
+      "id": "qoder",
+      "name": "Qoder CLI",
+      "mode": "skill",
+      "user": "~/.qoder/skills",
+      "project": ".qoder/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoder-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "/skills reload; official CLI doc says user-level same-name skills override project-level. Do not reuse this claim for IDE."
+      ]
+    },
+    {
+      "id": "qoder-cn",
+      "name": "Qoder CN CLI",
+      "mode": "skill",
+      "user": "${QODERCN_CONFIG_DIR:-~/.qoder-cn}/skills",
+      "project": ".qoder/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoder-cn-docs",
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "CLI config root is vendor documented; skills path also corroborated by installer registry. Confirm the active CLI skills discovery before writing. IDE and legacy Lingma tracked separately."
+      ]
+    },
+    {
+      "id": "qoder-cn-ide",
+      "name": "Qoder CN IDE / current Skills UI",
+      "mode": "skill-import",
+      "user": null,
+      "project": null,
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoder-cn-ide-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Use the documented upload UI; older Lingma guide has a different filesystem profile."
+      ]
+    },
+    {
+      "id": "qoder-ide",
+      "name": "Qoder IDE / current Skills UI",
+      "mode": "skill-import",
+      "user": null,
+      "project": null,
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoder-ide-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Extensions > Skills > Add Skills > Upload Skill accepts SKILL.md or ZIP. Confirm Installed and slash suggestions. Official page does not establish an on-disk IDE path."
+      ]
+    },
+    {
+      "id": "qoderwork",
+      "name": "QoderWork",
+      "mode": "skill",
+      "user": "~/.qoderwork/skills",
+      "project": null,
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoderwork-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "User directory or native upload; not the Qoder CLI directory."
+      ]
+    },
+    {
+      "id": "qoderwork-cn",
+      "name": "QoderWork CN",
+      "mode": "skill",
+      "user": "~/.qoderwork/skills",
+      "project": null,
+      "evidence": "vendor-docs",
+      "sources": [
+        "qoderwork-cn-docs"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "CN Work documentation also specifies .qoderwork/skills."
+      ]
+    },
+    {
+      "id": "qwen-code",
+      "name": "Qwen Code",
+      "mode": "skill",
+      "user": "~/.qwen/skills",
+      "project": ".qwen/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "reasonix",
+      "name": "Reasonix",
+      "mode": "skill",
+      "user": "~/.reasonix/skills",
+      "project": ".reasonix/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "replit",
+      "name": "Replit",
+      "mode": "skill",
+      "user": "${XDG_CONFIG_HOME:-~/.config}/agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "Resolve paths inside the Replit workspace; local desktop home is not the cloud account."
+      ]
+    },
+    {
+      "id": "roo",
+      "name": "Roo Code",
+      "mode": "skill",
+      "user": "~/.roo/skills",
+      "project": ".roo/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "rovodev",
+      "name": "Rovo Dev",
+      "mode": "skill",
+      "user": "~/.rovodev/skills",
+      "project": ".rovodev/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "sarvam-code",
+      "name": "Sarvam Code",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "tabnine-cli",
+      "name": "Tabnine CLI",
+      "mode": "skill",
+      "user": "~/.tabnine/agent/skills",
+      "project": ".tabnine/agent/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "terramind",
+      "name": "Terramind",
+      "mode": "skill",
+      "user": "~/.terramind/skills",
+      "project": ".terramind/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "tinycloud",
+      "name": "Tinycloud",
+      "mode": "skill",
+      "user": "~/.tinycloud/skills",
+      "project": ".tinycloud/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "trae",
+      "name": "TRAE international IDE",
+      "mode": "skill",
+      "user": "~/.trae/skills",
+      "project": ".trae/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": [
+        "International documentation was not retrievable in this audit; registry paths require confirmation in the installed client. Do not substitute CN global directory."
+      ]
+    },
+    {
+      "id": "trae-cn",
+      "name": "TRAE CN IDE",
+      "mode": "skill",
+      "user": "~/.trae-cn/skills",
+      "project": ".trae/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "trae-cn-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Project .agents/skills requires Enable .agents skill directory setting; .trae/skills wins for the same name. No evidence that the user-level ~/.agents/skills is read."
+      ]
+    },
+    {
+      "id": "warp",
+      "name": "Warp",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf",
+      "mode": "skill",
+      "user": "~/.codeium/windsurf/skills",
+      "project": ".windsurf/skills",
+      "evidence": "vendor-docs",
+      "sources": [
+        "windsurf-docs",
+        "vercel-registry"
+      ],
+      "selection": "model-selection",
+      "notes": [
+        "Cascade only; inspect Devin and compatibility skill directories rather than installing multiple entries."
+      ]
+    },
+    {
+      "id": "zcode",
+      "name": "ZCode",
+      "mode": "skill",
+      "user": "~/.zcode/skills",
+      "project": ".zcode/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "zed",
+      "name": "Zed",
+      "mode": "skill",
+      "user": "~/.agents/skills",
+      "project": ".agents/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "zencoder",
+      "name": "Zencoder",
+      "mode": "skill",
+      "user": "~/.zencoder/skills",
+      "project": ".zencoder/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    },
+    {
+      "id": "zenflow",
+      "name": "Zenflow",
+      "mode": "skill",
+      "user": "~/.zencoder/skills",
+      "project": ".zencoder/skills",
+      "evidence": "installer-registry",
+      "sources": [
+        "vercel-registry"
+      ],
+      "selection": "host-dependent",
+      "notes": []
+    }
+  ],
+  "fallback": {
+    "mode": "instructions",
+    "format": "markdown",
+    "process": "Verify native custom instructions, project rules, system prompt or skill import; deploy the canonical body once. For UI-only tools use their settings/import surface. If the host has no persistent customization, attach instructions to the coding session and report session-only scope; do not claim automatic installation.",
+    "examples": [
+      "CodeGeeX",
+      "MarsCode",
+      "Cody",
+      "Tabnine IDE",
+      "ChatGPT",
+      "Claude web",
+      "DeepSeek",
+      "Doubao",
+      "Tencent Yuanbao",
+      "Kimi web",
+      "Bolt",
+      "Lovable",
+      "v0"
+    ]
+  }
+}
