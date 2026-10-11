@@ -23,7 +23,7 @@ sync_one() {
   echo "synced: $name.mdc"
 }
 
-for s in global-coding-principles brainstorming plan verification react-typescript; do
+for s in global-coding-principles brainstorming plan verification stack-conventions; do
   sync_one "$s"
 done
 
@@ -31,7 +31,7 @@ if [ $# -ge 1 ]; then
   TARGET="$1/.cursor/rules"
   mkdir -p "$TARGET"
   # 只复制本套件的文件，不触碰目标项目已有的其他规则
-  for s in global-coding-principles brainstorming plan verification react-typescript; do
+  for s in global-coding-principles brainstorming plan verification stack-conventions; do
     cp "$ROOT/adapters/cursor/rules/$s.mdc" "$TARGET/"
   done
   echo "installed to $TARGET (existing files with the same names were updated in place; other rules untouched)"

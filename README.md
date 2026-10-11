@@ -10,7 +10,7 @@ skills/                        # 唯一规范来源（source of truth）
   brainstorming/               # L2 需求澄清（按需）
   plan/                        # L3 实施计划（按需）
   verification/                # L4 风险分级验证
-  react-typescript/            # 专项：React+TS 栈（按作用域加载）
+  stack-conventions/           # 专项：技术栈无关的约定遵循（按需加载）
 adapters/
   cursor/rules/                # Cursor .mdc（作用域配置 + 同步引用）
   codex/                       # Codex AGENTS.md / skills 安装说明

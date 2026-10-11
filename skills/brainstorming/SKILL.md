@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Clarify what to build before designing how. Use only when the request has critical ambiguity, involves a significant design decision, has materially different technical approaches, or changes architecture/behavior at a large scale. Small, clear tasks must skip this.
+description: Clarify what to build before designing how, for any kind of project. Use only on critical ambiguity, a significant design decision, materially different approaches, or large architectural/behavioral change. Small, clear tasks must skip this.
 ---
 
 # Brainstorming — What, Not How

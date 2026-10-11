@@ -1,5 +1,5 @@
 ---
-description: Clarify goals/non-goals/anti-goals before significant design work. Trigger only on real ambiguity or major decisions.
+description: Clarify goals/non-goals/anti-goals before significant design work, in any project. Trigger only on real ambiguity or major decisions.
 alwaysApply: false
 ---
 
