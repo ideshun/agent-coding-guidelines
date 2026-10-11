@@ -1,0 +1,405 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent coding benchmark run",
+  "description": "Local measurements. Null means unavailable, never an estimated token count.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,79}$"
+    },
+    "taskId": {
+      "enum": [
+        "01-style",
+        "02-react",
+        "03-typescript",
+        "04-bug",
+        "05-cross-file",
+        "06-design",
+        "07-ambiguity",
+        "08-narrow-scope"
+      ]
+    },
+    "group": {
+      "enum": [
+        "none",
+        "legacy",
+        "new"
+      ]
+    },
+    "repetition": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fixtureFingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "model": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "toolInterface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "toolVersion": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "toolCapabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "maxItems": 30
+        },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "maxToolCalls": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "maxTokens": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "maxTimeMs": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            }
+          },
+          "required": [
+            "maxToolCalls",
+            "maxTokens",
+            "maxTimeMs"
+          ],
+          "additionalProperties": false
+        },
+        "ruleSetFingerprint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "ambientFingerprint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "isolation": {
+          "enum": [
+            "verified",
+            "unverified",
+            "not-applicable"
+          ]
+        },
+        "ambient": {
+          "type": "object",
+          "properties": {
+            "instructions": {
+              "enum": [
+                "controlled",
+                "uncontrolled",
+                "not-applicable"
+              ]
+            },
+            "skills": {
+              "enum": [
+                "controlled",
+                "uncontrolled",
+                "not-applicable"
+              ]
+            },
+            "hooks": {
+              "enum": [
+                "disabled",
+                "controlled",
+                "uncontrolled",
+                "not-applicable"
+              ]
+            }
+          },
+          "required": [
+            "instructions",
+            "skills",
+            "hooks"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "toolInterface",
+        "toolVersion",
+        "toolCapabilities",
+        "budget",
+        "ruleSetFingerprint",
+        "ambientFingerprint",
+        "isolation",
+        "ambient"
+      ],
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "completion": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "testPass": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "unrelatedDiff": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "changedFiles": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "maxLength": 240,
+            "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\r\\n]+$"
+          },
+          "maxItems": 100
+        },
+        "tokens": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "input": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "output": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "total": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "source": {
+              "enum": [
+                "native-report"
+              ]
+            }
+          },
+          "required": [
+            "input",
+            "output",
+            "total",
+            "source"
+          ],
+          "additionalProperties": false
+        },
+        "toolCalls": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "elapsedMs": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "userConfirmations": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "ruleViolations": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "rule",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "completion",
+        "testPass",
+        "unrelatedDiff",
+        "changedFiles",
+        "tokens",
+        "toolCalls",
+        "elapsedMs",
+        "userConfirmations",
+        "ruleViolations"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "offline-oracle",
+            "native-run",
+            "manual-only"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "kind": {
+                "enum": [
+                  "automated",
+                  "manual"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "passed",
+                  "failed",
+                  "pending",
+                  "not-applicable"
+                ]
+              },
+              "exitCode": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "details": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "status",
+              "exitCode",
+              "details"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 30
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "maxItems": 30
+        }
+      },
+      "required": [
+        "kind",
+        "checks",
+        "notes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "runId",
+    "taskId",
+    "group",
+    "repetition",
+    "fixtureFingerprint",
+    "model",
+    "environment",
+    "metrics",
+    "evidence"
+  ],
+  "additionalProperties": false
+}

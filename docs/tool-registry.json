@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "checkedAt": "2026-10-11",
-  "canonical": "skills/<name>/SKILL.md",
+  "canonical": "SKILL.md",
   "statusMeaning": {
     "vendor-docs": "Mechanism checked against vendor documentation; no universal client execution claim.",
     "installer-registry": "Upstream installer declares these directories. Confirm current host support before installation."

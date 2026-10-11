@@ -25,7 +25,7 @@ test('catalog distinguishes domestic product variants, shared discovery and UI-o
 
 test('every catalog record has a unique identity, resolvable evidence and safe relative project target', () => {
   const registry = readRegistry();
-  assert.equal(registry.canonical, 'skills/<name>/SKILL.md');
+  assert.equal(registry.canonical, 'SKILL.md');
   assert.equal(new Set(registry.tools.map(tool => tool.id)).size, registry.tools.length);
   for (const tool of registry.tools) {
     assert.ok(['skill', 'skill-import', 'instructions', 'instructions-ui'].includes(tool.mode), tool.id);

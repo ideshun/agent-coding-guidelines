@@ -1,0 +1,44 @@
+{
+  "id": "06-design",
+  "title": "重要持久化设计",
+  "category": "design",
+  "prompt": "为现有编辑器设计草稿持久化方案：刷新不丢失、每位用户只能访问自己的草稿、单机部署、现阶段不要求多人实时协作。比较至少两种合理方案，说明推荐方案及关键约束；此阶段只提交设计，不实现代码。",
+  "contextFiles": [
+    "context/current-system.md"
+  ],
+  "changeAllowlist": [
+    "design.md"
+  ],
+  "expectedArtifacts": [
+    "design.md"
+  ],
+  "passChecks": [
+    {
+      "id": "design-review",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "设计对应刷新恢复、用户隔离与单机约束。",
+        "比较实际适用的至少两种方案，说明取舍、失败场景与验证方法。",
+        "指出是否需要迁移现有临时草稿；不擅自增加实时协作或分布式基础设施。",
+        "仅询问环境材料无法确认且会改变选择的关键事项。"
+      ],
+      "status": "pending",
+      "pendingReason": "架构质量需要人工或受控模型审查，不能通过关键词出现数量判断。"
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": [
+      "当前认证身份如何传入存储层（若现有上下文无法确认）。",
+      "恢复草稿与已有服务端文档的冲突策略（若影响方案且未有约定）。"
+    ]
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

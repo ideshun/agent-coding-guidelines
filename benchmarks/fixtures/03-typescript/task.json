@@ -1,0 +1,50 @@
+{
+  "id": "03-typescript",
+  "title": "TypeScript 返回值错误",
+  "category": "typescript",
+  "prompt": "修复 total 的 TypeScript 错误。保留 total(values: number[]): number 接口与数学求和语义，不用类型断言掩盖错误。",
+  "contextFiles": [
+    "src/total.ts",
+    "tsconfig.json",
+    "checks/oracle.mjs"
+  ],
+  "changeAllowlist": [
+    "src/total.ts"
+  ],
+  "expectedArtifacts": [
+    "src/total.ts"
+  ],
+  "passChecks": [
+    {
+      "id": "typecheck",
+      "kind": "automated",
+      "command": "npm run typecheck",
+      "criteria": [
+        "严格模式类型检查成功，返回值保持 number。"
+      ],
+      "status": "pending",
+      "pendingReason": "fixture 未安装 TypeScript；本轮不会自动安装。"
+    },
+    {
+      "id": "numeric-behavior",
+      "kind": "automated",
+      "command": "npm run test",
+      "criteria": [
+        "空数组为 0；整数、负数与小数输入得到数值总和，不是格式化字符串。"
+      ],
+      "status": "pending",
+      "pendingReason": "该检查先用 TypeScript 编译业务源码，再运行数值断言；编译依赖尚未安装。"
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

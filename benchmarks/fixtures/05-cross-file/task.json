@@ -1,0 +1,43 @@
+{
+  "id": "05-cross-file",
+  "title": "跨文件价格边界",
+  "category": "cross-file",
+  "prompt": "修复免运费边界：商品小计达到 100（含 100）即免运费。结算金额与提示必须一致，沿用已有 shippingCost，不增加其他价格策略。",
+  "contextFiles": [
+    "src/pricing.mjs",
+    "src/checkout.mjs",
+    "checks/oracle.mjs"
+  ],
+  "changeAllowlist": [
+    "src/pricing.mjs",
+    "src/checkout.mjs"
+  ],
+  "expectedArtifacts": [
+    "src/pricing.mjs",
+    "src/checkout.mjs"
+  ],
+  "passChecks": [
+    {
+      "id": "checkout-boundary",
+      "kind": "automated",
+      "command": "node --test checks/oracle.mjs",
+      "criteria": [
+        "99、100、101 的运费、总价、免运费标记相互一致。",
+        "结算保持原有返回结构。"
+      ],
+      "status": "ready",
+      "pendingReason": null
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

@@ -1,6 +1,6 @@
 # 来源、取舍与证据边界
 
-本项目原创编写轻量原生编码技能与维护评测工具，借鉴下列公开项目的思想。它不是 Karpathy、Multica、Superpowers 或任何编辑器的官方产品，也不代表上游认可这些组合。下文保留实际 diff、快照与证据限制；研究如何落实到运行时见 [设计与覆盖](design.md)，当前正文以 [skills/](../skills) 目录下各 SKILL.md 为准。
+本项目原创编写轻量原生编码技能与维护评测工具，借鉴下列公开项目的思想。它不是 Karpathy、Multica、Superpowers 或任何编辑器的官方产品，也不代表上游认可这些组合。下文保留实际 diff、快照与证据限制；研究如何落实到运行时见 [设计与覆盖](design.md)，当前正文以根 [SKILL.md](../SKILL.md) 与 [references/](../references/) 为准；规则与探针对应见 [rule-probe-map.md](rule-probe-map.md)。
 
 研究记录日期：2026-10-11。PR 状态和滚动文档会变化；下列 commit 是本次阅读的快照，后续更新应重新检查实际 diff、讨论及许可。
 

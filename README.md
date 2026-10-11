@@ -1,105 +1,101 @@
 # Agent Coding Guidelines
 
-一套简洁、可靠、可维护、跨工具复用的 AI Coding 工作流规则。核心目标：**更有效、更低成本、更可控**，而不是制造复杂的 Agent 框架。
+一套简洁、可靠、可维护、跨工具复用的 AI Coding 流程化 skill。核心目标：**更有效、更低成本、更可控**——用分级路由与按需加载约束 Agent 行为，而不是制造复杂框架。
 
-**单一来源，不叠加等价入口**：`skills/*/SKILL.md` 是唯一规范正文，`adapters/`、导出脚本与兼容目录都从它派生。诚实声明：本仓库目前**没有受控对照实验证明提效**——所有静态测试只验证内容完整性，不验证模型行为收益（见[验证说明](docs/verification.md)）。
+**单一来源，不叠加等价入口**：根 [`SKILL.md`](SKILL.md) 是唯一通用原则正文；`references/` 仅在 T2（或对应触发）时按需读取；导出脚本与兼容目录都从它派生。诚实声明：本仓库目前**没有受控对照实验证明提效**——静态测试只验证内容完整性与预算，不验证模型行为收益（见[验证说明](docs/verification.md)）。
 
 [English](README.en.md)
 
 ## 内容
 
 ```
-skills/                        # 唯一规范来源（source of truth）
-  global-coding-principles/    # L1 全局编码纪律（常驻）
-  brainstorming/               # L2 需求澄清（按需）
-  plan/                        # L3 实施计划（按需）
-  verification/                # L4 风险分级验证
-  stack-conventions/           # 专项：技术栈无关的约定遵循（按需加载）
-adapters/
-  cursor/rules/                # Cursor .mdc（作用域配置 + 同步引用）
-  codex/                       # Codex AGENTS.md / skills 安装说明
-  claude-code/                 # Claude Code 安装说明
-scripts/                       # 只读导出与兼容查询（Node 20+ 标准库，无依赖）
+SKILL.md                       # 唯一入口：T0/T1/T2 路由 + 核心纪律
+references/
+  clarify.md                   # T2：what（brief + 取舍）
+  plan.md                      # T2：how（步骤 → verify；优先宿主 Plan）
+  verify.md                    # T2 / 非平凡 T1：V0–V2 + 诚实报告
 profiles/                      # 可选项目级规范（不进全局）
+scripts/                       # 只读导出、打包与兼容查询（Node 20+ 标准库）
+benchmarks/                    # 八类公开任务与离线 oracle（仅维护；不进安装包）
 docs/
-  architecture.md              # 层级与加载策略说明
-  compatibility.md             # 跨工具兼容入口与部署方式
-  tool-registry.json           # 88 宿主配置（区分证据等级）
-  verification.md              # 宿主发现与行为验收分开验证
-  design.md                    # 研究来源 → 决策 → 落实位置 → 验收
+  design.md                    # 研究来源 → 决策 → 落实位置
+  rule-probe-map.md            # 规则 ↔ fixture 探针（探索性）
+  compatibility.md             # 跨工具兼容
+  tool-registry.json           # 宿主配置目录
+  benchmarks.md                # 评测边界
+  verification.md              # 发现与行为验收分开
   references.md                # 研究记录与证据边界
 ```
 
 ## 设计来源
 
-- [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) 四原则，及其社区 PR 中的实操强化：任务分级、过度设计信号清单、红旗表、验证不可省略（PR #188/#197 等，采纳时按 diff 实审，未合并内容仅作候选）。
-- [obra/superpowers](https://github.com/obra/superpowers) brainstorming 的需求澄清理念（Goal/Non-goal/Anti-goal/取舍/审批），但**不继承**其强制流程：小任务不 brainstorm、不强制多轮提问、不强制设计文档与 subagent review、不自动 git commit。
-- 各工具官方机制：Cursor `.mdc`（alwaysApply / description / globs）、Codex `AGENTS.md`（`~/.codex` 全局 + 项目级联）与 skills、Claude Code `CLAUDE.md` 与 `.claude/skills/`。
+- [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) 四原则，及其社区 PR 中的实操强化：任务分级、验证不可省略、范围纪律（PR #188/#197 等，采纳时按 diff 实审）。
+- [obra/superpowers](https://github.com/obra/superpowers) brainstorming 的 Goal / Non-goal / Anti-goal / 取舍理念，但**不继承**强制多轮提问、强制设计文档、subagent review 或自动 git commit。
+- 各工具官方机制：Skills 发现、宿主原生 Plan、项目既有验证方案。
 
-来源 → 决策 → 落实位置的完整映射见 [design.md](docs/design.md)；每项研究的 diff 快照与不采纳理由见 [references.md](docs/references.md)。
+完整映射见 [design.md](docs/design.md)；规则与探针对应见 [rule-probe-map.md](docs/rule-probe-map.md)。
 
 ## 使用
 
-### Cursor
+把仓库链接或本地路径发给你正在用的 AI 工具，并说：
 
-1. 将 `adapters/cursor/rules/*.mdc` 复制到项目 `.cursor/rules/`（项目级）或 Cursor 用户规则（用户级）。
-2. 运行同步，把 skill 正文内联进 `.mdc`（Cursor 的 `@file` 引用不会内联正文，仅作为 Agent 可读取的提示）：
+> 请读取 README，识别你当前的工具与版本，把本仓库安装到可用的公共配置或原生用户配置。支持 Skills 时**只**部署运行时文件：`SKILL.md`、`LICENSE` 和 `references/`（可用下方 `pack-skill` 生成）；不要复制 `benchmarks/`、`docs/`、`scripts/`、`profiles/`。不支持 Skills 时用 `node scripts/export.mjs --format instructions` 的输出。检查重复入口，备份已有内容，完成安装并报告原生加载验收。
 
-```bash
-./scripts/sync-cursor.sh /path/to/target-project
+### 运行时打包（推荐安装源）
+
+```sh
+node scripts/pack-skill.mjs --out /tmp/agent-coding-guidelines
 ```
 
-### Codex / Claude Code / 其他
+只复制 5 个运行时文件到空目录，输出 JSON 清单。`benchmarks/` 等维护资料留在 git，不进 Skills 安装目录。
 
-见 `adapters/codex/README.md`、`adapters/claude-code/README.md`。原则相同：L1 进全局指令文件，其余作为按需 skill 安装，**不并入全局**。
+### 规则型宿主导出
 
-其他 88 个宿主的入口、证据等级与注意事项见 [compatibility.md](docs/compatibility.md) 与 [tool-registry.json](docs/tool-registry.json)；可用只读命令查询：
+```sh
+node scripts/export.mjs --format skill
+node scripts/export.mjs --format instructions
+```
+
+只输出到 stdout，不改宿主配置、不联网。instructions 会把全部 `references/*.md` 链接折叠为自包含短提示。
+
+### 兼容查询
 
 ```sh
 node scripts/compatibility.mjs --list
 node scripts/compatibility.mjs --tool codebuddy
 ```
 
-### 规则型宿主导出
-
-规则型宿主（instructions / 项目规则）使用同一正文的导出形式，不维护第二份规范正文：
-
-```sh
-node scripts/export.mjs --skill global-coding-principles --format instructions
-```
-
-只输出到 stdout，不改宿主配置、不联网。
+其他宿主见 [compatibility.md](docs/compatibility.md) 与 [tool-registry.json](docs/tool-registry.json)。
 
 ### 可选项目级规范（React + TypeScript）
 
-[profiles/react-typescript.md](profiles/react-typescript.md) 仅供确实采用该栈的项目选用，不进全局。导出为 Cursor `.mdc` 或 VS Code instructions：
+[profiles/react-typescript.md](profiles/react-typescript.md) 仅供确实采用该栈的项目选用，不进全局：
 
 ```sh
-node scripts/export-profile.mjs --format cursor   # .cursor/rules/react-typescript.mdc
-node scripts/export-profile.mjs --format vscode   # .github/instructions/react-typescript.instructions.md
+node scripts/export-profile.mjs --format cursor
+node scripts/export-profile.mjs --format vscode
 ```
 
 ### 已有配置保护
 
-安装只追加、不覆盖：不删除、清空或批量替换你已有的 Rules / Skills / MCP / AGENTS.md。项目已有 `AGENTS.md` 时只追加引用行。备份与回滚规则见 [compatibility.md](docs/compatibility.md) 的「去重、优先级与回滚」。
+安装只追加、不覆盖：不删除或批量替换你已有的 Rules / Skills / MCP / AGENTS.md。备份与回滚见 [compatibility.md](docs/compatibility.md)。
 
-## 原则摘要
+## 流程摘要
 
-1. **Think Before Coding** — 不臆测；先读代码；关键歧义才提问。
-2. **Simplicity First** — 满足需求的最简单方案；不造未要求的抽象。
-3. **Surgical Changes** — 每行改动可追溯至需求；提交前自审 git diff。
-4. **Goal-Driven Execution** — 先定义可验证的成功标准。
-5. **Verification Is Not Optional** — 「完成」必须有本次会话的真实执行证据；失败如实上报。
+1. **Route** — 按风险选 T0 / T1 / T2；小改动直接做。
+2. **Clarify**（T2）— 产出 brief：目标 / 非目标 / 反目标 / 约束 / 成功标准。
+3. **Plan**（T2）— 步骤与 per-step verify；优先宿主 Plan。
+4. **Verify** — 与 T 对齐的 V0/V1/V2；真实输出；诚实报告未验证项。
 
 ## 维护
 
 ```sh
-node --test tests/*.test.mjs   # 静态测试（导出完整性、目录记录格式、仓库校验）
-node scripts/validate.mjs      # 公开内容静态校验（身份、链接、JSON、敏感模式）
+node --test tests/*.test.mjs
+node scripts/validate.mjs
 ```
 
-这些检查不调用模型，静态通过不代表模型收益；宿主发现与行为验收的方法见 [verification.md](docs/verification.md)。
+这些检查不调用模型。行为对照方法见 [benchmarks.md](docs/benchmarks.md) 与 [verification.md](docs/verification.md)。
 
 ## 许可
 
-[MIT](LICENSE)。与 Karpathy、Superpowers 及各工具厂商没有官方关系；来源快照与证据边界见 [references.md](docs/references.md)。
+[MIT](LICENSE)。与 Karpathy、Superpowers 及各工具厂商没有官方关系；来源快照见 [references.md](docs/references.md)。

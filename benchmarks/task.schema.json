@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Public benchmark task fixture",
+  "type": "object",
+  "properties": {
+    "id": {
+      "enum": [
+        "01-style",
+        "02-react",
+        "03-typescript",
+        "04-bug",
+        "05-cross-file",
+        "06-design",
+        "07-ambiguity",
+        "08-narrow-scope"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "category": {
+      "enum": [
+        "style",
+        "react",
+        "typescript",
+        "bug",
+        "cross-file",
+        "design",
+        "ambiguity",
+        "narrow-scope"
+      ]
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "contextFiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 240,
+        "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\r\\n]+$"
+      },
+      "maxItems": 30
+    },
+    "changeAllowlist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 240,
+        "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\r\\n]+$"
+      },
+      "maxItems": 30
+    },
+    "expectedArtifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 240,
+        "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))[^\\\\\\r\\n]+$"
+      },
+      "maxItems": 30
+    },
+    "passChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "kind": {
+            "enum": [
+              "automated",
+              "manual"
+            ]
+          },
+          "command": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "maxItems": 20
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "pending"
+            ]
+          },
+          "pendingReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "command",
+          "criteria",
+          "status",
+          "pendingReason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    },
+    "clarification": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "askOnlyFor": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [
+        "required",
+        "askOnlyFor"
+      ],
+      "additionalProperties": false
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "modelInput": {
+      "type": "object",
+      "properties": {
+        "promptField": {
+          "const": "prompt"
+        },
+        "contextFilesField": {
+          "const": "contextFiles"
+        },
+        "inspectBeforeChanges": {
+          "const": true
+        },
+        "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": {
+          "const": true
+        }
+      },
+      "required": [
+        "promptField",
+        "contextFilesField",
+        "inspectBeforeChanges",
+        "doNotTreatTaskMetadataAsAnAdditionalGlobalRule"
+      ],
+      "additionalProperties": false
+    },
+    "optionalChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "kind": {
+            "enum": [
+              "automated",
+              "manual"
+            ]
+          },
+          "command": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "criteria": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "maxItems": 20
+          },
+          "status": {
+            "enum": [
+              "ready",
+              "pending"
+            ]
+          },
+          "pendingReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "command",
+          "criteria",
+          "status",
+          "pendingReason"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "category",
+    "prompt",
+    "contextFiles",
+    "changeAllowlist",
+    "expectedArtifacts",
+    "passChecks",
+    "clarification",
+    "schemaVersion",
+    "modelInput"
+  ],
+  "additionalProperties": false
+}

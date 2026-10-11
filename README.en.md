@@ -1,105 +1,101 @@
 # Agent Coding Guidelines
 
-A concise, reliable, maintainable set of AI coding workflow rules, reusable across tools. Core goal: **more effective, lower cost, more controllable** — not another complex agent framework.
+A concise, reliable, maintainable, cross-tool **workflow skill** for AI coding agents. Core goal: **more effective, lower cost, more controllable** — via risk routing and progressive disclosure, not another agent framework.
 
-**Single source of truth, no equivalent duplicate entries**: `skills/*/SKILL.md` is the only canonical body; `adapters/`, export scripts and the compatibility catalog all derive from it. Honest disclaimer: this repository currently has **no controlled comparison proving effectiveness** — all static tests verify content integrity, not model behavior gains (see [verification](docs/verification.md)).
+**Single source of truth, no duplicate entries**: root [`SKILL.md`](SKILL.md) is the only shared body; `references/` load only on T2 (or matching triggers); export scripts and the compatibility catalog derive from it. Honest disclaimer: this repository currently has **no controlled comparison proving effectiveness** — static tests check integrity and budgets, not model gains (see [verification](docs/verification.md)).
 
 [简体中文](README.md)
 
 ## Contents
 
 ```
-skills/                        # Single source of truth
-  global-coding-principles/    # L1 global coding discipline (always-on)
-  brainstorming/               # L2 requirement clarification (on demand)
-  plan/                        # L3 implementation planning (on demand)
-  verification/                # L4 risk-based verification
-  stack-conventions/           # Special: stack-agnostic convention adherence (on demand)
-adapters/
-  cursor/rules/                # Cursor .mdc (scope config + synced reference)
-  codex/                       # Codex AGENTS.md / skills installation notes
-  claude-code/                 # Claude Code installation notes
-scripts/                       # Read-only export & compatibility queries (Node 20+ stdlib, no deps)
-profiles/                      # Opt-in project-level profiles (never global)
+SKILL.md                       # Single entry: T0/T1/T2 route + core discipline
+references/
+  clarify.md                   # T2: what (brief + trade-offs)
+  plan.md                      # T2: how (steps → verify; prefer host Plan)
+  verify.md                    # T2 / non-trivial T1: V0–V2 + honest report
+profiles/                      # Opt-in project profiles (never global)
+scripts/                       # Read-only export, pack & compatibility (Node 20+ stdlib)
+benchmarks/                    # Eight public tasks + offline oracles (maintainers only; not installed)
 docs/
-  architecture.md              # Layering and loading strategy
-  compatibility.md             # Cross-tool compatibility entries and deployment modes
-  tool-registry.json           # 88 host profiles with evidence levels
-  verification.md              # Host discovery vs. behavioral acceptance, verified separately
-  design.md                    # Research source → decision → location → acceptance
-  references.md                # Research records and evidence limits
+  design.md                    # Research → decision → location
+  rule-probe-map.md            # Rule ↔ fixture probes (exploratory)
+  compatibility.md             # Cross-tool compatibility
+  tool-registry.json           # Host catalog
+  benchmarks.md                # Evaluation boundaries
+  verification.md              # Discovery vs. behavior acceptance
+  references.md                # Research notes and evidence limits
 ```
 
 ## Design sources
 
-- [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) four principles, plus practical hardening from community PRs: task calibration, over-engineering smell lists, red-flag tables, non-negotiable verification (PRs #188/#197 etc.; each diff re-inspected on adoption, unmerged content is only a candidate).
-- [obra/superpowers](https://github.com/obra/superpowers) brainstorming ideas (Goal/Non-goal/Anti-goal/trade-offs/approval), but **not** its mandatory workflow: no brainstorm for small tasks, no forced multi-round questions, no forced design docs or subagent review, no automatic git commit.
-- Official host mechanisms: Cursor `.mdc` (alwaysApply / description / globs), Codex `AGENTS.md` (`~/.codex` global + project cascade) and skills, Claude Code `CLAUDE.md` and `.claude/skills/`.
+- [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) four principles plus practical hardening from community PRs (task calibration, non-negotiable verification, scope discipline).
+- [obra/superpowers](https://github.com/obra/superpowers) brainstorming ideas (Goal / Non-goal / Anti-goal / trade-offs), **without** mandatory multi-round questions, design docs, subagent review, or auto-commits.
+- Host-native Skills discovery, Plan modes, and existing project verification schemes.
 
-The full research source → decision → location mapping is in [design.md](docs/design.md); diff snapshots and rejection reasons are in [references.md](docs/references.md).
+Full mapping: [design.md](docs/design.md). Rule ↔ probe map: [rule-probe-map.md](docs/rule-probe-map.md).
 
 ## Usage
 
-### Cursor
+Give the repo link or local path to your AI tool:
 
-1. Copy `adapters/cursor/rules/*.mdc` into the project `.cursor/rules/` (project scope) or Cursor user rules (user scope).
-2. Run the sync to inline skill bodies into the `.mdc` files (Cursor `@file` references do not inline bodies):
+> Read the README, identify your tool and version, and install into the supported shared or native user config. For Skills hosts deploy **only** the runtime files: `SKILL.md`, `LICENSE`, and `references/` (use `pack-skill` below). Do not copy `benchmarks/`, `docs/`, `scripts/`, or `profiles/`. Otherwise use `node scripts/export.mjs --format instructions`. Deduplicate entries, back up existing config, finish install, and report native-load acceptance.
 
-```bash
-./scripts/sync-cursor.sh /path/to/target-project
+### Runtime pack (preferred install source)
+
+```sh
+node scripts/pack-skill.mjs --out /tmp/agent-coding-guidelines
 ```
 
-### Codex / Claude Code / others
+Copies the five runtime files into an empty directory and prints a JSON manifest. Keep `benchmarks/` and other maintainer material in git only.
 
-See `adapters/codex/README.md`, `adapters/claude-code/README.md`. Same principle: L1 goes into the global instruction file; the rest install as on-demand skills, **never into the global file**.
+### Rule-host export
 
-For 88 more hosts, see [compatibility.md](docs/compatibility.md) and [tool-registry.json](docs/tool-registry.json); query with read-only commands:
+```sh
+node scripts/export.mjs --format skill
+node scripts/export.mjs --format instructions
+```
+
+Stdout only; no config writes; no network. The instructions format folds every `references/*.md` link into a short self-contained hint.
+
+### Compatibility lookup
 
 ```sh
 node scripts/compatibility.mjs --list
 node scripts/compatibility.mjs --tool codebuddy
 ```
 
-### Rule-based host export
+See [compatibility.md](docs/compatibility.md) and [tool-registry.json](docs/tool-registry.json).
 
-Rule-based hosts (instructions / project rules) use an export of the same source; never maintain a second guideline body:
+### Opt-in React + TypeScript profile
 
-```sh
-node scripts/export.mjs --skill global-coding-principles --format instructions
-```
-
-Output goes to stdout only; no host configuration is touched, no network access.
-
-### Opt-in project profile (React + TypeScript)
-
-[profiles/react-typescript.md](profiles/react-typescript.md) is for projects that actually use that stack; never global. Export as a Cursor `.mdc` or a VS Code instructions file:
+[profiles/react-typescript.md](profiles/react-typescript.md) is never global:
 
 ```sh
-node scripts/export-profile.mjs --format cursor   # .cursor/rules/react-typescript.mdc
-node scripts/export-profile.mjs --format vscode   # .github/instructions/react-typescript.instructions.md
+node scripts/export-profile.mjs --format cursor
+node scripts/export-profile.mjs --format vscode
 ```
 
-### Existing configuration protection
+### Protect existing config
 
-Installation appends and never overwrites: do not delete, empty or batch-replace your existing Rules / Skills / MCP / AGENTS.md. When the project already has an `AGENTS.md`, only append a reference line. Backup and rollback rules are in [compatibility.md](docs/compatibility.md), section "Deduplication, priority and rollback".
+Install appends; it does not wipe Rules / Skills / MCP / AGENTS.md. Backup and rollback: [compatibility.md](docs/compatibility.md).
 
-## Principle summary
+## Workflow summary
 
-1. **Think Before Coding** — don't assume; read the code first; ask only on critical ambiguity.
-2. **Simplicity First** — the simplest solution that meets the need; no speculative abstractions.
-3. **Surgical Changes** — every changed line traces to the request; self-review the git diff.
-4. **Goal-Driven Execution** — define verifiable success criteria first.
-5. **Verification Is Not Optional** — "done" requires real execution evidence from this session; report failures honestly.
+1. **Route** — pick T0 / T1 / T2; clear small edits skip ceremony.
+2. **Clarify** (T2) — brief: goal / non-goals / anti-goals / constraints / success criteria.
+3. **Plan** (T2) — steps with per-step verify; prefer host Plan mode.
+4. **Verify** — V0/V1/V2 aligned with T; real output; honest gaps.
 
 ## Maintenance
 
 ```sh
-node --test tests/*.test.mjs   # static tests (export integrity, catalog format, repo validation)
-node scripts/validate.mjs      # static public-content validation (identity, links, JSON, secret patterns)
+node --test tests/*.test.mjs
+node scripts/validate.mjs
 ```
 
-These checks make no model calls; static success does not establish model benefits. Host discovery and behavioral acceptance methods are in [verification.md](docs/verification.md).
+These checks do not call models. Behavioral comparison methods: [benchmarks.md](docs/benchmarks.md) and [verification.md](docs/verification.md).
 
 ## License
 
-[MIT](LICENSE). No affiliation with Karpathy, Superpowers or any tool vendor; source snapshots and evidence limits are in [references.md](docs/references.md).
+[MIT](LICENSE). Not affiliated with Karpathy, Superpowers, or tool vendors. Research snapshots: [references.md](docs/references.md).

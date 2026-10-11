@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "runId": "offline-bug-oracle",
+  "taskId": "04-bug",
+  "group": "none",
+  "repetition": 1,
+  "fixtureFingerprint": "066f3cf6c9b5b9f0c173216bdf920db7e5dcf279ed23fd9d6f5e14ca06811f4a",
+  "model": null,
+  "environment": {
+    "toolInterface": "node-test",
+    "toolVersion": "20.20.1",
+    "toolCapabilities": [
+      "local-javascript-oracle"
+    ],
+    "budget": {
+      "maxToolCalls": null,
+      "maxTokens": null,
+      "maxTimeMs": null
+    },
+    "ruleSetFingerprint": null,
+    "ambientFingerprint": null,
+    "isolation": "not-applicable",
+    "ambient": {
+      "instructions": "not-applicable",
+      "skills": "not-applicable",
+      "hooks": "not-applicable"
+    }
+  },
+  "metrics": {
+    "completion": null,
+    "testPass": true,
+    "unrelatedDiff": 0,
+    "changedFiles": [
+      "src/sort-scores.mjs"
+    ],
+    "tokens": null,
+    "toolCalls": null,
+    "elapsedMs": null,
+    "userConfirmations": null,
+    "ruleViolations": null
+  },
+  "evidence": {
+    "kind": "offline-oracle",
+    "checks": [
+      {
+        "id": "sorting",
+        "kind": "automated",
+        "status": "passed",
+        "exitCode": 0,
+        "details": "Maintainer-written reference correction in an isolated temporary fixture copy. Starter fails; corrected tie ordering and input immutability pass."
+      }
+    ],
+    "notes": [
+      "Observed while running tests/benchmark.test.mjs with Node.js 20.20.1. No model was invoked.",
+      "The none group is record-format metadata here, not a measured baseline model run.",
+      "Completion, tokens, model tool calls, model elapsed time, confirmations and model rule violations remain unmeasured."
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "08-narrow-scope",
+  "title": "严格修改边界",
+  "category": "narrow-scope",
+  "prompt": "只把 formatPrice 的显示货币前缀从 USD 改为 CNY，保留两位小数与现有函数接口。不要调整其他代码、格式、文档或测试。",
+  "contextFiles": [
+    "src/format-price.mjs",
+    "checks/oracle.mjs"
+  ],
+  "changeAllowlist": [
+    "src/format-price.mjs"
+  ],
+  "expectedArtifacts": [
+    "src/format-price.mjs"
+  ],
+  "passChecks": [
+    {
+      "id": "formatting",
+      "kind": "automated",
+      "command": "node --test checks/oracle.mjs",
+      "criteria": [
+        "0、整数、小数与负数都使用 CNY 前缀及两位小数。"
+      ],
+      "status": "ready",
+      "pendingReason": null
+    },
+    {
+      "id": "diff-scope",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "仅 src/format-price.mjs 中必要的前缀改动；其他既有文件保持逐字节一致。"
+      ],
+      "status": "pending",
+      "pendingReason": "需要对执行后的副本与原 fixture 比较，结果采集器本身不扫描任意工作目录。"
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

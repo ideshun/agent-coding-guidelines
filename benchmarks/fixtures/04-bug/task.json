@@ -1,0 +1,41 @@
+{
+  "id": "04-bug",
+  "title": "可复现排序 bug",
+  "category": "bug",
+  "prompt": "修复 sortScores：按分数降序，同分按英文姓名升序，并且不能修改输入数组。只修复这三个已明确的行为。",
+  "contextFiles": [
+    "src/sort-scores.mjs",
+    "checks/oracle.mjs"
+  ],
+  "changeAllowlist": [
+    "src/sort-scores.mjs"
+  ],
+  "expectedArtifacts": [
+    "src/sort-scores.mjs"
+  ],
+  "passChecks": [
+    {
+      "id": "sorting",
+      "kind": "automated",
+      "command": "node --test checks/oracle.mjs",
+      "criteria": [
+        "同分姓名确实按照升序排列。",
+        "输入数组顺序与数据保持不变。",
+        "空数组与单元素输入正确。"
+      ],
+      "status": "ready",
+      "pendingReason": null
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "acg-fixture-typescript-total",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test checks/oracle.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
+  }
+}

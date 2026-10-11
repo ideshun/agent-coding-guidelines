@@ -1,0 +1,41 @@
+{
+  "id": "07-ambiguity",
+  "title": "关键目标歧义",
+  "category": "ambiguity",
+  "prompt": "让搜索更快。",
+  "contextFiles": [
+    "src/search.mjs",
+    "context/known-facts.md"
+  ],
+  "changeAllowlist": [],
+  "expectedArtifacts": [],
+  "passChecks": [
+    {
+      "id": "clarification-boundary",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "先检查现有搜索实现与已提供事实。",
+        "确认用户关心响应时间、吞吐还是感知体验及其验收目标。",
+        "没有可支持优化的测量证据时不虚构瓶颈或擅自改代码。",
+        "只提出会影响方案的关键问题；不重复询问材料已有信息。"
+      ],
+      "status": "pending",
+      "pendingReason": "需要审查对话与行为；本轮没有调用模型，也不会以字符串包含某些词代替审查。"
+    }
+  ],
+  "clarification": {
+    "required": true,
+    "askOnlyFor": [
+      "希望改善响应时间、并发吞吐还是用户感知体验？",
+      "对应的验收指标与可复现输入是什么？"
+    ]
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

@@ -1,6 +1,6 @@
 # 跨工具兼容与安装
 
-兼容范围包含国内外 AI 编码工具、IDE 插件、CLI、远程及云端工作区。CodeBuddy、Qoder、Trae 是明确支持的目标。`skills/*/SKILL.md` 是唯一规范正文（L1 常驻 + L2/L3/L4 与 stack-conventions 按需）；根据当前宿主部署原生 Skill、导入技能或转换成原生规则/自定义指令。日常任务无需手动引用仓库规则。
+兼容范围包含国内外 AI 编码工具、IDE 插件、CLI、远程及云端工作区。CodeBuddy、Qoder、Trae 是明确支持的目标。根 [SKILL.md](../SKILL.md) 是唯一通用原则正文；根据当前宿主部署原生 Skill、导入技能或转换成原生规则/自定义指令。日常任务无需手动引用仓库规则。
 
 ## 兼容入口与证据
 
@@ -12,7 +12,7 @@
 
 ## 国内工具及产品差异
 
-下表技能目录均再包含各 `skills/<name>/SKILL.md` 与 `LICENSE`。
+下表技能目录均再包含 `agent-coding-guidelines/SKILL.md`、`LICENSE` 和 `references/{clarify,plan,verify}.md`。
 
 | 产品 / 目录 ID | 用户级 | 项目级或原生导入 | 加载与注意事项 | 依据 |
 | --- | --- | --- | --- | --- |
@@ -52,29 +52,29 @@
 
 ## 三种部署方式
 
-1. **原生 Skills**：原样复制各 `skills/<name>/SKILL.md` 与 `LICENSE`；只把 L1（global-coding-principles）放进常驻指令（如适用），其余按需 skill 安装，保留正常自动选择；确认启用状态、发现目录和技能列表。无额外运行时依赖。
-2. **原生技能导入**：上传同样的目录结构或 ZIP，在客户端完成导入并确认管理列表。若 UI 只接收单个 `SKILL.md`，先检查其是否支持引用文件；不支持时用规则型自包含正文，不能留下失效链接。无法操作 UI 时交付导入文件并报告待导入状态，磁盘暂存不能说成已安装。
-3. **规则 / 自定义指令**：通过 `scripts/export.mjs --skill <name> --format instructions` 移除 YAML frontmatter，把 description 作为适用范围，并把 skill 间的条件式引用折叠为简短自包含提示；合并至原生入口或原生 UI 创建的规则正文。L1 常驻进全局指令，其余 skill 只在目标宿主支持按需加载时部署；只有常驻规则时说明正文持续进入上下文。不要同时启用 Skill 与等价规则。
+1. **原生 Skills**：只部署运行时文件——`SKILL.md`、`LICENSE` 与 `references/{clarify,plan,verify}.md`（可用 `node scripts/pack-skill.mjs --out <dir>` 生成）；不要复制 `benchmarks/`、`docs/`、`scripts/`、`profiles/`。保留正常自动选择；确认启用状态、发现目录和技能列表。无额外运行时依赖。
+2. **原生技能导入**：上传同一目录结构或 ZIP，在客户端完成导入并确认管理列表。若 UI 只接收单个 `SKILL.md`，先检查其是否支持引用文件；不支持时用规则型自包含正文，不能留下失效链接。无法操作 UI 时交付导入文件并报告待导入状态，磁盘暂存不能说成已安装。
+3. **规则 / 自定义指令**：通过 `scripts/export.mjs --format instructions` 移除 YAML frontmatter，把双语 description 作为适用范围，并把全部 references/*.md 链接转换为简短自包含提示；合并至原生入口或原生 UI 创建的规则正文。支持模型判断加载时选该方式；只有常驻规则时说明正文持续进入上下文。不要同时启用 Skill 与等价规则。
 
-安装时根据当前宿主选择一个入口，用户无需日常手工引用。正文不绑定厂商 MCP 名、工具 API、权限、hooks 或固定流程。
+安装 AI 根据当前宿主选择一个入口，用户无需日常手工引用。正文不绑定厂商 MCP 名、工具 API、权限、hooks 或固定流程。
 
 ## 已核对的原生机制边界
 
-- [Cursor Rules](https://cursor.com/docs/rules) 区分项目 `.cursor/rules/*.mdc`、UI 用户规则、文件 glob 和智能体请求；[Skills](https://cursor.com/docs/skills) 确认本机用户 `~/.agents/skills/` 自动发现、正文按相关性选择；[Commands](https://docs.cursor.com/en/agent/chat/commands) 是 `/` 手动调用入口，不适合作为本套件的默认加载方式。[Plan Mode](https://prod.cursor.com/docs/agent/plan-mode) 已提供复杂任务规划，小改动可直接执行。
+- [Cursor Rules](https://cursor.com/docs/rules) 区分项目 `.cursor/rules/*.mdc`、UI 用户规则、文件 glob 和智能体请求；[Skills](https://cursor.com/docs/skills) 确认本机用户 `~/.agents/skills/` 自动发现、正文按相关性选择；[Commands](https://docs.cursor.com/en/agent/chat/commands) 是 `/` 手动调用入口，不适合作为本技能的默认加载方式。[Plan Mode](https://prod.cursor.com/docs/agent/plan-mode) 已提供复杂任务规划，小改动可直接执行。
 - [OpenAI Docs：AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md) 负责目录层级指令；[Skills](https://learn.chatgpt.com/docs/build-skills) 确认用户级 `~/.agents/skills/`、名字/描述的初始发现与正文按需读取。用户/项目设置用 [config.toml](https://learn.chatgpt.com/docs/config-file/config-basic)，[Sandbox 与审批](https://learn.chatgpt.com/docs/agent-approvals-security) 属于宿主权限层，技能不得覆盖。
 - [CodeBuddy IDE Rules](https://www.codebuddy.cn/docs/ide/User-guide/Rules) 将 `alwaysApply` 原文常驻与按描述请求区分；[CodeBuddy Skills](https://www.codebuddy.cn/docs/cli/skills) 有自己的用户/项目入口。[Cline Skills](https://docs.cline.bot/customization/skills) 使用 `~/.cline/skills/`，并有独立启用开关。不能假设它们都读取 Cursor/Codex 的公共用户目录。
 - [VS Code 文件指令](https://code.visualstudio.com/docs/agent-customization/custom-instructions) 使用 `.github/instructions/*.instructions.md` 的 `applyTo`；它与 Cursor `.mdc` 不是同一语法。本仓库只输出适配内容，不默认写入任一项目。
 
-已有 Node.js 的维护者可使用以下只读辅助命令。安装时也可直接读取 JSON 并复制或转换正文，Node.js 不是必装依赖：
+已有 Node.js 的维护者可使用以下只读辅助命令。安装 AI 也可直接读取 JSON 并复制或转换正文，Node.js 不是必装依赖：
 
 ```sh
 node scripts/compatibility.mjs --tool codebuddy
 node scripts/compatibility.mjs --list
-node scripts/export.mjs --skill global-coding-principles --format skill
-node scripts/export.mjs --skill global-coding-principles --format instructions
+node scripts/export.mjs --format skill
+node scripts/export.mjs --format instructions
 ```
 
-只输出结果，不扫描应用、不改配置、不联网。`instructions` 不生成宿主元数据：Comate 的 `.mdr` 应先在界面生成，再替换正文，不能用纯 Markdown 覆盖整个文件。更新源 skill 后重新转换，不维护第二份规范正文。
+只输出结果，不扫描应用、不改配置、不联网。`instructions` 不生成宿主元数据：Comate 的 `.mdr` 应先在界面生成，再替换正文，不能用纯 Markdown 覆盖整个文件。更新源技能后重新转换，不维护第二份规范正文。
 
 ## 新工具、云端和聊天客户端
 

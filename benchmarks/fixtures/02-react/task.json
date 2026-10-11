@@ -1,0 +1,50 @@
+{
+  "id": "02-react",
+  "title": "React 计数器功能",
+  "category": "react",
+  "prompt": "给 Counter 增加“+1”和“重置”按钮。初始计数为 0；每次 +1 增加 1；重置回 0。保持现有简单组件结构，不加入其他功能。",
+  "contextFiles": [
+    "src/Counter.tsx",
+    "package.json",
+    "checks/Counter.oracle.tsx"
+  ],
+  "changeAllowlist": [
+    "src/Counter.tsx"
+  ],
+  "expectedArtifacts": [
+    "src/Counter.tsx"
+  ],
+  "passChecks": [
+    {
+      "id": "typecheck",
+      "kind": "automated",
+      "command": "npm run typecheck",
+      "criteria": [
+        "React/TypeScript 类型检查成功。"
+      ],
+      "status": "pending",
+      "pendingReason": "fixture 未安装 TypeScript 或 React 类型依赖；本轮不会自动安装。"
+    },
+    {
+      "id": "interaction",
+      "kind": "automated",
+      "command": "npm run test",
+      "criteria": [
+        "初始为 0；连续点击两次 +1 为 2；重置回 0；再次 +1 为 1。"
+      ],
+      "status": "pending",
+      "pendingReason": "需要 fixture 声明的 React、Vitest、Testing Library 与 jsdom 依赖；本轮未安装或执行。"
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  }
+}

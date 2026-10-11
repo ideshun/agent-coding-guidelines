@@ -1,0 +1,51 @@
+{
+  "id": "01-style",
+  "title": "小范围样式调整",
+  "category": "style",
+  "prompt": "将主按钮背景改为 #1677ff，圆角保持 6px，其他样式保持不变。",
+  "contextFiles": [
+    "src/button.css"
+  ],
+  "changeAllowlist": [
+    "src/button.css"
+  ],
+  "expectedArtifacts": [
+    "src/button.css"
+  ],
+  "passChecks": [
+    {
+      "id": "declarations",
+      "kind": "automated",
+      "command": "node --test checks/oracle.mjs",
+      "criteria": [
+        "主按钮 background-color 精确为 #1677ff。",
+        "圆角、间距、文字颜色与声明数量保持不变。"
+      ],
+      "status": "ready",
+      "pendingReason": null
+    }
+  ],
+  "clarification": {
+    "required": false,
+    "askOnlyFor": []
+  },
+  "schemaVersion": 1,
+  "modelInput": {
+    "promptField": "prompt",
+    "contextFilesField": "contextFiles",
+    "inspectBeforeChanges": true,
+    "doNotTreatTaskMetadataAsAnAdditionalGlobalRule": true
+  },
+  "optionalChecks": [
+    {
+      "id": "browser",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "在真实浏览器检查样式与原有布局。"
+      ],
+      "status": "pending",
+      "pendingReason": "仅在用户要求或实际出现渲染/布局疑问时进行真实浏览器检查；普通颜色改动不默认进入 L3。"
+    }
+  ]
+}
