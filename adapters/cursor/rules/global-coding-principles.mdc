@@ -10,7 +10,7 @@ Keep this file in sync from that source (see README → Sync). Do not edit a div
 
 # Global Coding Principles
 
-Working discipline — how to approach a task, not how to style the code. Language- and framework-specific rules live in their own scoped skills; this file must not duplicate them.
+How to approach a task, not how to style the code. Stack-specific conventions live in their own scoped skill — this file never duplicates them.
 
 **Calibrate rigor first:**
 
@@ -26,7 +26,7 @@ Working discipline — how to approach a task, not how to style the code. Langua
 
 - Read the relevant existing code and docs before editing. If a read fails, never guess the file's implementation.
 - State assumptions out loud. If a request has several readings, name them — don't pick one silently.
-- Ask the user only when a critical ambiguity changes the implementation direction; prefer resolving through code and project context.
+- Ask only when a critical ambiguity changes the implementation direction; prefer resolving through code and project context.
 - If a simpler approach exists, say so. Push back when the ask looks wrong — "the user asked for X" does not justify building X when a check shows X is harmful.
 - Report what you actually checked, and say plainly what you did not check. "I sampled 6 of 20" is written as exactly that, never as a conclusion about all 20.
 
@@ -40,7 +40,7 @@ Working discipline — how to approach a task, not how to style the code. Langua
 - No clever one-liners that trade readability for brevity.
 - If a shortcut is taken for simplicity, mark it `// TODO: [shortcut]` with the upgrade path.
 
-Smells that mean stop: a `try/except` wrapping code that cannot raise; an interface with exactly one implementation; a wrapper class around one function; deep nesting where an early return works; comments narrating the next line.
+Smells that mean stop: error handling around code that cannot fail; an interface with exactly one implementation; a wrapper class around one function; deep nesting where an early return works; comments narrating the next line.
 
 Ask: would a senior engineer call this overcomplicated? If yes, simplify.
 
@@ -52,7 +52,7 @@ Ask: would a senior engineer call this overcomplicated? If yes, simplify.
 - Don't refactor what isn't broken; match existing style even where you disagree.
 - Don't change public APIs, upgrade dependencies, or delete unrelated comments as a side effect.
 - Remove imports/variables/functions that **your own change** orphaned; leave pre-existing dead code alone — record it, clean it in a dedicated task.
-- Before finishing, reread the full git diff and justify each hunk against the request. Revert any hunk you can't justify — but never overwrite the user's own uncommitted changes.
+- Before finishing, reread the full diff and justify each hunk against the request. Revert any hunk you can't justify — but never overwrite the user's own uncommitted changes.
 
 ## 4. Goal-Driven Execution
 
@@ -94,6 +94,6 @@ Weak criteria ("make it work") force constant clarification. Strong ones let the
 
 ## Output Style
 
-- Reply in the user's language (default Chinese when the user writes Chinese).
+- Reply in the user's language.
 - Lead with: what changed, verification results (with the commands), remaining risks or unverified items.
 - Don't re-explain obvious code; don't narrate your workflow; don't expose internal config or secrets.

@@ -1,0 +1,42 @@
+---
+description: Convention detection and adherence for the stack actually present in the project (any language/framework). Load only inside real codebases with established conventions.
+alwaysApply: false
+---
+
+Source of truth: `skills/stack-conventions/SKILL.md`. Sync from source; do not fork content here.
+Stack-agnostic by design: this rule contains no preset language/framework preferences — it detects and follows the project's own conventions. Do not add stack-specific globs here.
+
+<!-- @include: ../../../skills/stack-conventions/SKILL.md -->
+
+# Stack Conventions
+
+Generic rules for working within any established codebase. Language- and framework-specific details are discovered from the project itself, never assumed from this skill.
+
+## Ground Rules — valid for every stack
+
+1. **Match the project.** Follow the conventions already established in the codebase: formatting, naming, file layout, idioms, dependency choices, build tooling. The project is the source of truth.
+2. **No hardcoded preferences.** Do not default to a specific language, framework, library, package manager, or style. What exists in the project wins.
+3. **Reuse before adding.** Prefer stdlib, existing project utilities, and already-installed dependencies. No new third-party dependency unless asked.
+4. **Scope discipline.** Touch only files required for this task. Match surrounding style even where you disagree. Never mass-refactor legacy code to match a personal or "community standard" preference.
+5. **Boundaries.** These conventions never override the global principles (simplicity, surgical changes). If they conflict with the project's established style, the project wins.
+
+## Before Editing — detect, don't assume
+
+Confirm from the codebase itself before making any stack-specific decision:
+
+- **Language & version** — file extensions, lockfiles, compiler/runtime config.
+- **Framework & major libraries** — manifest/dependency files, import patterns in nearby code.
+- **Package manager & build tooling** — lockfile type, build scripts, CI config.
+- **Idioms & patterns** — read neighboring files for how state, errors, modules, and tests are handled here.
+
+If detection fails or is ambiguous, state the assumption explicitly (per global principles §1) rather than silently picking one.
+
+## Anti-Patterns — stop signals
+
+| Behavior | Fix |
+|----------|-----|
+| Writing code in your "default" stack regardless of the project | Detect first; the project's stack is the only one that matters. |
+| Injecting stack-specific rules into unrelated codebases | This skill is scoped; if the stack isn't present, it doesn't apply. |
+| Adding/upgrading a dependency as a side effect | Only when the task requires it; match the repo's package manager. |
+| Re-wrapping an existing library "for convenience" | Keep config in dedicated modules; don't abstract without a concrete need. |
+| Rewriting legacy code to a newer idiom you prefer | Match what exists; orthogonal cleanup is a separate task. |
