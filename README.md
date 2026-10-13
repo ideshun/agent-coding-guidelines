@@ -39,7 +39,9 @@ docs/
 
 把仓库链接或本地路径发给你正在用的 AI 工具，并说：
 
-> 请读取 README，识别你当前的工具与版本，把本仓库安装到可用的公共配置或原生用户配置。支持 Skills 时**只**部署运行时文件：`SKILL.md`、`LICENSE` 和 `references/`（可用下方 `pack-skill` 生成）；不要复制 `benchmarks/`、`docs/`、`scripts/`、`profiles/`。不支持 Skills 时用 `node scripts/export.mjs --format instructions` 的输出。检查重复入口，备份已有内容，完成安装并报告原生加载验收。
+> 请读取 README 和 `docs/compatibility.md`，识别你当前的工具与版本，把本仓库安装到可用的公共配置或原生用户配置。支持 Skills 时**只**部署运行时文件：`SKILL.md`、`LICENSE` 和 `references/`（可用下方 `pack-skill` 生成）；不要复制 `benchmarks/`、`docs/`、`scripts/`、`profiles/`。CodeBuddy IDE/插件还需按安装文档核对原生工具与规则路径，将开发任务的短触发入口合并到现有 Rules，保留自定义内容。不支持 Skills 时用 `node scripts/export.mjs --format instructions` 的输出。检查重复入口，备份已有内容，完成安装，分别报告原生发现与实际调用的验收状态。
+
+Skill 出现在可用清单中，不代表模型已加载正文。CodeBuddy 的短触发 Rule 只负责在开发任务中请求原生 Skill，不复制规范正文；具体安装、去重和新会话验收见 [CodeBuddy 自动触发](docs/compatibility.md#codebuddy-自动触发)。其他宿主按各自原生机制处理。
 
 ### 运行时打包（推荐安装源）
 

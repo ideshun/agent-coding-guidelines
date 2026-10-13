@@ -39,7 +39,9 @@ Full mapping: [design.md](docs/design.md). Rule ↔ probe map: [rule-probe-map.m
 
 Give the repo link or local path to your AI tool:
 
-> Read the README, identify your tool and version, and install into the supported shared or native user config. For Skills hosts deploy **only** the runtime files: `SKILL.md`, `LICENSE`, and `references/` (use `pack-skill` below). Do not copy `benchmarks/`, `docs/`, `scripts/`, or `profiles/`. Otherwise use `node scripts/export.mjs --format instructions`. Deduplicate entries, back up existing config, finish install, and report native-load acceptance.
+> Read the README and `docs/compatibility.md`, identify your tool and version, and install into the supported shared or native user config. For Skills hosts deploy **only** the runtime files: `SKILL.md`, `LICENSE`, and `references/` (use `pack-skill` below). Do not copy `benchmarks/`, `docs/`, `scripts/`, or `profiles/`. For CodeBuddy IDE/plugins, verify the native tool and rule paths, then merge the short development-task trigger into existing Rules while preserving custom content. Otherwise use `node scripts/export.mjs --format instructions`. Deduplicate entries, back up existing config, finish install, and report discovery and actual invocation separately.
+
+A skill listed as available may still have an unloaded body. The CodeBuddy trigger Rule requests the native skill for development tasks without duplicating its instructions. See [CodeBuddy automatic activation](docs/compatibility.md#codebuddy-自动触发) for installation, deduplication, and fresh-session checks. Use each other host's own mechanisms.
 
 ### Runtime pack (preferred install source)
 

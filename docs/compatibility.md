@@ -17,7 +17,7 @@
 | 产品 / 目录 ID | 用户级 | 项目级或原生导入 | 加载与注意事项 | 依据 |
 | --- | --- | --- | --- | --- |
 | CodeBuddy Code / CLI `codebuddy` | `~/.codebuddy/skills/` | `.codebuddy/skills/` | 描述匹配；检查 `skillOverrides` 和禁用状态，保留其他设置 | [CLI Skills](https://www.codebuddy.cn/docs/cli/skills) |
-| CodeBuddy IDE / 插件 `codebuddy-ide` | 用当前 IDE 技能管理/导入确定位置 | `.codebuddy/skills/` | 不把 CLI 用户目录直接泛化到所有 IDE 版本 | [IDE 概述](https://www.codebuddy.ai/docs/ide/User-guide/Overview) |
+| CodeBuddy IDE / 插件 `codebuddy-ide` | 用当前 IDE 技能管理/导入确定位置 | `.codebuddy/skills/` | 发现不等于调用；按下文配置开发任务短触发 Rule，不把 CLI 用户目录泛化到 IDE | [IDE Skills](https://www.codebuddy.ai/docs/ide/Features/Skills) |
 | Qoder CLI `qoder` | `~/.qoder/skills/` | `.qoder/skills/` | `/skills reload`；CLI 文档规定同名用户技能优先 | [CLI Skills](https://docs.qoder.com/cli/Skills) |
 | Qoder CN CLI `qoder-cn` | `${QODERCN_CONFIG_DIR:-~/.qoder-cn}/skills/` | `.qoder/skills/` | 厂商确认配置根，安装器声明 skills 入口；确认当前 CLI 发现结果 | [配置作用域](https://docs.qoder.cn/en/cli/config-scope)、[安装器](https://github.com/vercel-labs/skills/blob/main/src/agents.ts) |
 | Qoder IDE `qoder-ide` | Extensions → Skills → Add Skills → Upload Skill | 导入 `SKILL.md` 或 ZIP | 官方提供导入机制，未给磁盘路径；按 Installed 及 `/` 建议验收 | [Skills](https://docs.qoder.com/qoder/skills) |
@@ -57,6 +57,29 @@
 3. **规则 / 自定义指令**：默认使用 `scripts/export.mjs --format instructions`，移除 YAML frontmatter，把双语 description 作为适用范围，保留完整根正文，只移除可选文件链接。需要参考细节时选择 `instructions-full`，内联实际参考正文各一次并改为文内链接。两种方式检查引用有效性，均不维护另一份摘要。合并至原生入口或原生 UI 创建的规则正文；完整导出成本不同于原生 Skill 的按需文件读取。支持模型判断或文件作用域时使用相应机制，不同时启用 Skill 与等价规则。
 
 安装 AI 根据当前宿主选择一个入口，用户无需日常手工引用。通用正文不绑定厂商 MCP 名、工具 API、hooks 或固定流程，也不改变宿主权限与实际加载优先级。
+
+## CodeBuddy 自动触发
+
+本节针对 CodeBuddy IDE/插件，CLI 的接口与配置另行核实。[IDE Skills 文档](https://www.codebuddy.ai/docs/ide/Features/Skills)说明名称与描述用于选择，正文在触发后加载。因此，模型看到技能清单仍可能直接使用普通编码工具。安装本技能用于日常开发时，配置一个短原生触发入口，保持 Skill 正文只有一份。
+
+1. 先确认 `agent-coding-guidelines` 已被当前客户端发现、启用且可读取，并核对原生 Skill 工具。下面示例适用于已确认提供 `use_skill`、参数为 `command` 的版本；其他版本按实际接口适配，不能仅据 CLI 文档猜测 IDE 能力。
+2. 在安装请求授权的用户级或项目级作用域中，优先把下面的正文合并到已有始终应用的 Rule。若没有合适规则，通过当前客户端原生机制创建；保留其合法元数据。用户规则位置由目标界面或现有有效配置确认，项目规则使用 `.codebuddy/rules/<name>/RULE.mdc`。写入前备份并比较，不覆盖整份自定义规则。
+
+```mdc
+---
+description: 开发任务自动加载 agent-coding-guidelines
+alwaysApply: true
+enabled: true
+---
+
+软件开发与代码相关任务开始相关工作前，若当前上下文尚未加载 agent-coding-guidelines 正文，必须先调用 use_skill，command 为 agent-coding-guidelines；已加载时不重复调用。普通聊天与非技术写作不触发。
+参考文件按任务需要读取。加载失败时如实说明，按宿主现有规则继续，不声称已加载，也不重复无效调用。
+```
+
+3. 仅保留一个触发入口，不复制四原则或 `references/` 正文；现有 Plan、验证分级及权限机制继续生效。短触发 Rule 与 Skill 是入口和正文的关系，不是两份等价规范。选择完整规则型部署的宿主无需再配置这个 Skill 触发入口。
+4. 按[IDE Rules 文档](https://www.codebuddy.ai/docs/zh/ide/User-guide/Rules)新建会话使规则生效。用未点名技能的开发任务检查实际 `use_skill` 调用和后续行为，不能把模型自报“已使用”当成调用证据。路由提示仍依赖模型执行，不保证每次调用或更低费用；验收状态和缺项应如实报告。
+
+不要为了触发 Skill 添加 MCP、Hook、子代理或重复常驻正文。具体用例见[验证说明](verification.md)。
 
 ## 已核对的原生机制边界
 

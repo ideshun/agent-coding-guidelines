@@ -1,6 +1,6 @@
 ---
 name: agent-coding-guidelines
-description: "Use for implementing, debugging, reviewing or refactoring code, and inspecting or changing development configuration. 适用于编码、调试、审查、重构及开发配置；普通聊天与非技术写作不使用。"
+description: "AI 编码行为与工作流规范。适用于软件开发与代码相关任务，指导 Agent 核查事实、选择简单方案、精准修改并按风险验证。用于代码分析、功能开发或修改、Bug 修复、代码审查与重构，以及测试、构建和开发配置。Use for software development and code-related tasks. 普通聊天与非技术写作不使用。"
 license: MIT
 ---
 
