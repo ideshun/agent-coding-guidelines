@@ -35,6 +35,7 @@
 | PR 141 | 实质性矛盾与简短推荐 | Core §1 与 clarify | 矛盾需求不猜方案 |
 | PR 168 | 简单方案保留正确性、安全与可维护性 | Core §2 | 少代码不能删保护 |
 | PR 183 | 使用现成验证；未执行不伪报 | Core §4 与 verify | 无框架不强装测试 |
+| Caveman Native Core / verify-and-stop / 输出保真边界 | 在负责层修改，以整体复杂度而非改动量衡量；充分验收后停止；简短汇报不丢精确值、单位和限定条件 | Core §2/§4 与报告约束 | `05-cross-file` / `08-narrow-scope` 的人工探针；真实模型运行 pending |
 | Superpowers Brainstorming | 重大设计的 goal / non-goal / anti-goal / 取舍 | [clarify.md](../references/clarify.md) | `06-design` |
 
 以上是设计可追溯性，不是模型收益成绩。规则与 fixture 对应及已删减项见 [规则探针清单](rule-probe-map.md)；研究 diff 快照见 [研究记录](references.md)。

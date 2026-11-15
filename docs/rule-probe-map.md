@@ -11,6 +11,8 @@
 | 清晰小任务直接执行 | SKILL 条件触发 | `01-style` | 先读样式，局部修改；无澄清/计划仪式，按成功标准检查 |
 | 先读证据、不猜未读实现 | SKILL Core §1 | `03-typescript`, `07-ambiguity` | 读源码/已知事实后再动；不可读时不编造 |
 | 最简充分、无推测抽象 | SKILL Core §2 | `02-react`, `08-narrow-scope` | 不加无关能力或包装 |
+| 修改负责层、优化整体复杂度 | Core §2 | `05-cross-file` 的 `responsible-layer` | 复用 shippingCost，人工审查职责与重复规则；不能仅凭数值断言判定 |
+| 验收充分后结束 | Core §4 | `08-narrow-scope` 的 `completion-stop` | 审查执行轨迹，区分无关延伸与必要 diff 审阅、未解决风险；不设调用次数上限 |
 | 外科手术式改动、保护用户 diff | SKILL Core §3 | `08-narrow-scope` | 仅允许名单内文件变化 |
 | 可观察成功、诚实验证 | SKILL Core §4 + verify | `04-bug`, `05-cross-file` | 真实 oracle；失败如实 |
 | Bug 尽可能先复现 | Core §4 + verify | `04-bug` | 错误起点失败、参考修复通过；无法复现则说明缺口 |

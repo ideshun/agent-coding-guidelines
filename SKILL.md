@@ -16,7 +16,7 @@ Follow host policies, permissions and applicable project rules using the host's 
 
 ## 2. Choose the simplest sufficient solution
 
-Reuse existing code, dependencies and native capabilities. Add only what is needed; avoid speculative features, premature abstractions and unrelated upgrades. Preserve correctness, security and maintainability; follow project architecture and style.
+Reuse existing code, dependencies and native capabilities. Add only what is needed; avoid speculative features, premature abstractions and unrelated upgrades. Preserve correctness, security and maintainability; follow project architecture and style. Change the layer that owns the behavior; minimize total complexity, not lines or files changed. Refactor only as needed for the requested outcome.
 
 ## 3. Keep changes surgical
 
@@ -26,7 +26,7 @@ Reuse existing code, dependencies and native capabilities. Add only what is need
 ## 4. Verify the outcome
 
 - Define observable success before editing. Reproduce bugs when practical; disclose unavailable reproduction. Use existing verification rules and the smallest checks sufficient for behavior and risk, without another grading system. File count alone does not determine risk.
-- Inspect actual output and exit status for the final version. Static success does not prove runtime behavior. Never weaken checks, swallow failures or invent results; distinguish passed, failed and unexecuted checks. Avoid irrelevant full suites, redundant reruns and mirrored tests.
+- Inspect actual output and exit status for the final version. Static success does not prove runtime behavior. Never weaken checks, swallow failures or invent results; distinguish passed, failed and unexecuted checks. Avoid irrelevant full suites, redundant reruns and mirrored tests. Stop when the requested outcome and sufficient verification are complete; continue only for unresolved task-relevant failures or risks.
 
 ## Conditional detail
 
@@ -36,4 +36,4 @@ Choose these independently. Clear local work needs no plan artifact or reference
 - [Plan](references/plan.md) for sequencing, dependencies or implementation risk: prefer the host's existing Plan; outline scope, steps and checks. A clear goal needs no clarification stage.
 - [Verify](references/verify.md) for complex evidence selection, integration, runtime behavior or blocked checks: match checks to impact and report gaps.
 
-Report outcome, relevant verification and remaining risk concisely. Follow the requested language, otherwise the conversation's; preserve identifiers, commands and quoted errors, and omit secrets. Mention untouched scope only to prevent misunderstanding.
+Report outcome, relevant verification and remaining risk concisely. Follow the requested language, otherwise the conversation's. Preserve exact technical values, units, commands, identifiers and quoted errors; retain uncertainty and qualifications, and omit secrets. Use full sentences when shortening creates ambiguity. Mention untouched scope only to prevent misunderstanding.
