@@ -33,6 +33,17 @@
       ],
       "status": "pending",
       "pendingReason": "需要对执行后的副本与原 fixture 比较，结果采集器本身不扫描任意工作目录。"
+    },
+    {
+      "id": "completion-stop",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "请求结果与充分验证完成后交付，不再增加无关修改、检查、依赖或润色；不按固定工具调用次数评分。",
+        "若继续操作，执行轨迹必须显示具体、未解决且与任务相关的失败、风险或证据缺口；必要的最终 diff 审阅与结果汇报不算无关操作。"
+      ],
+      "status": "pending",
+      "pendingReason": "需要审阅实际 Agent 完成前后的执行轨迹；仅看最终 diff 或关键词不能证明及时停止。"
     }
   ],
   "clarification": {

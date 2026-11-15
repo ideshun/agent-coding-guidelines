@@ -81,11 +81,23 @@
 
 不采用：所有任务强制 brainstorm、固定多轮询问、强制设计文档、强制子代理审核、强制 writing-plans、自动提交或对小改动设置审批仪式。设计资料留在维护文档，默认不注册独立 brainstorming 技能；正文仅处理影响结果的未知信息，Plan 使用工具原生机制。
 
+## Caveman：负责层、完成条件与测量口径
+
+2026-11-15 检查 [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) 当前主分支。以下链接跟随上游变化，不是固定版本快照，也不是本项目的实测结果。
+
+- [Native Core](https://github.com/JuliusBrussee/caveman/blob/main/skills/native/native-core.md)：借鉴在负责层修改、以整体复杂度衡量简单性，避免把精准修改理解为最少行数。
+- [verify-and-stop](https://github.com/JuliusBrussee/caveman/blob/main/skills/verify-and-stop/SKILL.md)：借鉴满足请求与充分验证后结束；未解决的任务相关失败和风险仍需处理。
+- [caveman](https://github.com/JuliusBrussee/caveman/blob/main/skills/caveman/SKILL.md)：借鉴精确值、单位及限定条件保真，歧义时用完整句。现有否定、顺序、语言、命令与错误保护继续保留，不重复增加一套风格规则。
+- [评测说明](https://github.com/JuliusBrussee/caveman/blob/main/evals/README.md)与[证据边界](https://github.com/JuliusBrussee/caveman/blob/main/docs/HONEST-NUMBERS.md)：借鉴简短指令对照、区分输出长度与净成本。不将旧版、小样本输出比例解释为本技能或当前上游的质量等价与账单收益。
+
+不引入电报体、硬性句长、多种表达模式、代理、路由、hooks 或自动压缩用户需求。规则以原创表述整合，维持四原则与按需 references；新增人工探针只定义验收，尚未证明模型行为改善。成本与简短指令实验的现有格式限制见 [benchmarks.md](benchmarks.md)。
+
 ## 许可与归属
 
 - 本项目采用 MIT，技能正文与维护评测工具以原创表达为主。
 - Karpathy 上游 README、plugin.json 和 SKILL frontmatter 声明 MIT，但研究快照没有独立 LICENSE。不能把 PR 208 fork 新增的版权文件冒充 upstream 原有文件。后续若复制实质性正文或代码，应核实并保留相应版权与许可通知；无法核实时不复制。
 - Superpowers 的 [LICENSE](https://github.com/obra/superpowers/blob/main/LICENSE) 为 MIT，版权通知为 2025 Jesse Vincent；保留适用的第三方通知。
+- Caveman 当前仓库声明 Apache-2.0；本次借鉴决策原则，未复制其脚本或整段规则。后续若复制实质性内容，须核实并履行相应许可与通知义务。
 - 来源链接表示研究与归属，不表示认证、合作或背书。未使用上游 logo，不把本项目测试冒充上游 benchmark。
 
 工具配置机制的官方资料与版本边界见 [compatibility.md](compatibility.md)；本项目验证定义见 [verification.md](verification.md)。

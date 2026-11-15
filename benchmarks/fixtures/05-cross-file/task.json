@@ -27,6 +27,17 @@
       ],
       "status": "ready",
       "pendingReason": null
+    },
+    {
+      "id": "responsible-layer",
+      "kind": "manual",
+      "command": null,
+      "criteria": [
+        "免运费规则由已有 shippingCost 负责；结算金额与提示复用该规则，不在调用方重复阈值、硬编码边界结果或改写 oracle 来通过检查。",
+        "允许必要的跨文件修改；根据职责归属与整体复杂度评估方案，不按修改行数或文件数评分。"
+      ],
+      "status": "pending",
+      "pendingReason": "需要审阅实际 Agent diff 与负责层；固定输入的行为断言不能独自证明规则复用。"
     }
   ],
   "clarification": {
